@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="The Legends Unchained community table-play leaderboard, refreshed hourly."
+    />
+    <meta name="theme-color" content="#100a1f" />
+    <title>VPX Table Leaderboard · Legends Unchained</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2319112b'/%3E%3Cpath d='M8 32 22 9h20l14 23-14 23H22Z' fill='%23ff276d'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='sans-serif' font-size='18' font-weight='700' fill='white'%3ELU%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Oxanium:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="grid-glow" aria-hidden="true"></div>
+
+    <header class="site-header shell">
+      <a
+        class="brand"
+        href="./"
+        aria-label="Legends Unchained VPX leaderboard home"
+      >
+        <span class="brand-mark" aria-hidden="true">
+          <img src="images/lu_logo.svg" alt="" />
+        </span>
+      </a>
+      <a
+        class="source-link"
+        href="https://github.com/LegendsUnchained/vpx-stats"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 .8a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.2.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.8 5.4-5.5 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6A11.5 11.5 0 0 0 12 .8Z"
+          />
+        </svg>
+        <span>View source</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero shell">
+        <div class="eyebrow">
+          <span class="live-dot"></span> Live community telemetry
+        </div>
+        <h1>See what the community<br /><em>keeps coming back to.</em></h1>
+        <p class="hero-copy">
+          A live ranking of VPX tables played on Legends Unchained cabinets.
+          Anonymous, aggregated, and refreshed every hour.
+        </p>
+
+        <div class="hero-stats" aria-live="polite">
+          <div class="hero-stat">
+            <span class="stat-label">Plays in this period</span>
+            <strong id="total-plays">—</strong>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <span class="stat-label">Tables in rotation</span>
+            <strong id="active-tables">—</strong>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="hero-stat hero-stat-wide">
+            <span class="stat-label">Last refreshed</span>
+            <strong id="last-refreshed">—</strong>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="leaderboard-section shell"
+        aria-labelledby="leaderboard-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Community favorites</p>
+            <h2 id="leaderboard-title">Table leaderboard</h2>
+          </div>
+          <div
+            class="period-tabs"
+            role="tablist"
+            aria-label="Leaderboard time period"
+          >
+            <button type="button" role="tab" data-period="day">Day</button>
+            <button type="button" role="tab" data-period="week">Week</button>
+            <button type="button" role="tab" data-period="month">Month</button>
+            <button type="button" role="tab" data-period="year">Year</button>
+            <button type="button" role="tab" data-period="all">All time</button>
+          </div>
+        </div>
+
+        <div class="period-note">
+          <span id="period-label">Loading leaderboard…</span>
+          <span id="period-window"></span>
+        </div>
+
+        <div id="loading-state" class="loading-state" role="status">
+          <span class="loader"></span>
+          <span>Setting up the tables…</span>
+        </div>
+
+        <div id="error-state" class="error-state" hidden>
+          <span class="error-icon" aria-hidden="true">!</span>
+          <div>
+            <h3>The leaderboard could not be loaded</h3>
+            <p id="error-message">Try refreshing the page in a moment.</p>
+          </div>
+          <button id="retry-button" type="button">Try again</button>
+        </div>
+
+        <div id="leaderboard-content" hidden>
+          <section
+            id="podium-section"
+            class="podium-section"
+            aria-labelledby="podium-title"
+          >
+            <h3 id="podium-title" class="visually-hidden">Top three tables</h3>
+            <div id="podium" class="podium"></div>
+          </section>
+
+          <section class="full-ranking" aria-labelledby="full-ranking-title">
+            <div class="ranking-header">
+              <div>
+                <p class="section-kicker">Full standings</p>
+                <h3 id="full-ranking-title">Every table. Every play.</h3>
+              </div>
+              <label class="search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="m20.5 20.5-4.4-4.4m2.4-5.6a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                  />
+                </svg>
+                <span class="visually-hidden">Find a table</span>
+                <input
+                  id="table-search"
+                  type="search"
+                  placeholder="Find a table…"
+                  autocomplete="off"
+                />
+              </label>
+            </div>
+
+            <div class="column-labels" aria-hidden="true">
+              <span>Rank</span>
+              <span>Table</span>
+              <span>Plays</span>
+            </div>
+            <ol id="ranking-list" class="ranking-list"></ol>
+            <p id="no-results" class="no-results" hidden>
+              No tables match that search.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <dialog
+      id="cabinet-dialog"
+      class="cabinet-dialog"
+      aria-labelledby="cabinet-dialog-title"
+    >
+      <form method="dialog" class="dialog-shell">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-kicker">One-click install</p>
+            <h2 id="cabinet-dialog-title">Choose a cabinet</h2>
+            <p id="cabinet-dialog-table"></p>
+          </div>
+          <button
+            class="dialog-close"
+            type="submit"
+            aria-label="Close cabinet chooser"
+          >
+            ×
+          </button>
+        </div>
+        <div id="cabinet-list" class="cabinet-list"></div>
+        <button id="manage-cabinets" class="manage-cabinets" type="button">
+          Manage connected cabinets
+        </button>
+      </form>
+    </dialog>
+
+    <p id="install-status" class="install-status" hidden aria-live="polite"></p>
+
+    <footer class="site-footer shell">
+      <p>
+        Counts contain no device ID, serial number, account, play duration, IP
+        address, or user agent.
+      </p>
+      <p>
+        Built for the
+        <a
+          href="https://github.com/LegendsUnchained"
+          target="_blank"
+          rel="noreferrer"
+          >Legends Unchained</a
+        >
+        community.
+      </p>
+    </footer>
+  </body>
+</html>

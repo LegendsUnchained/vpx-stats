@@ -1,0 +1,14 @@
+{
+  "name": "vpx-stats",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public Legends Unchained table-play leaderboard",
+  "scripts": {
+    "fetch": "node scripts/fetch-stats.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
