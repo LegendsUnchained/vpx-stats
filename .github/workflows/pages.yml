@@ -4,7 +4,8 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "17 * * * *"
+    # Temporary high-frequency trigger to verify GitHub's scheduler end to end.
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
