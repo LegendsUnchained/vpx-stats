@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+readonly CURL_CONFIG=/etc/vpx-stats-refresh/curl.conf
+readonly LOCK_FILE=/run/lock/vpx-stats-refresh.lock
+readonly LOG_TAG=vpx-stats-refresh
+
+if [ ! -r "$CURL_CONFIG" ]; then
+  /usr/bin/logger -t "$LOG_TAG" "dispatch failed: missing $CURL_CONFIG"
+  exit 1
+fi
+
+if /usr/bin/flock --conflict-exit-code 75 --nonblock "$LOCK_FILE" \
+  /usr/bin/curl --config "$CURL_CONFIG"; then
+  /usr/bin/logger -t "$LOG_TAG" "dispatched LegendsUnchained/vpx-stats pages workflow"
+  exit 0
+fi
+
+status=$?
+if [ "$status" -eq 75 ]; then
+  /usr/bin/logger -t "$LOG_TAG" "dispatch skipped: another invocation is active"
+else
+  /usr/bin/logger -t "$LOG_TAG" "dispatch failed with exit status $status"
+fi
+exit "$status"

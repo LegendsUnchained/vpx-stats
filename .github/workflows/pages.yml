@@ -3,9 +3,6 @@ name: Refresh stats and deploy Pages
 on:
   push:
     branches: [main]
-  schedule:
-    # Temporary high-frequency trigger to verify GitHub's scheduler end to end.
-    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:

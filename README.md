@@ -1,6 +1,6 @@
 # VPX Stats
 
-Public, hourly table-play statistics for the Legends Unchained community.
+Public, half-hourly table-play statistics for the Legends Unchained community.
 
 The site turns anonymous `go-vpx-launcher` play events from GoatCounter into a
 static leaderboard. Table IDs are resolved against the latest
@@ -15,7 +15,8 @@ Once GitHub Pages is enabled, the public endpoints will be:
 
 ## How it works
 
-`.github/workflows/pages.yml` runs at 17 minutes past every hour and on demand. It:
+`.github/workflows/pages.yml` runs on pushes to `main` and on demand. Production's
+Ash cron dispatches it at minutes 0 and 30 of every hour. The workflow:
 
 1. Downloads the latest ALP4K release manifest.
 2. Reads GoatCounter's ranked event paths for rolling day, week, month, year, and
@@ -24,7 +25,7 @@ Once GitHub Pages is enabled, the public endpoints will be:
 4. Writes `site/data/stats.json` and deploys the complete `site/` directory to
    GitHub Pages.
 
-The generated JSON is a deployment artifact, not a stream of hourly commits. The
+The generated JSON is a deployment artifact, not a stream of scheduled commits. The
 API token is only available to the workflow process and is never included in the
 site or its data.
 
@@ -102,10 +103,22 @@ Before the first workflow run:
    `GOATCOUNTER_API_TOKEN`.
 2. In **Settings → Pages**, select **GitHub Actions** as the build and deployment
    source.
-3. Run **Refresh stats and deploy Pages** manually, or wait for the hourly schedule.
+3. Run **Refresh stats and deploy Pages** manually to verify the deployment.
 
 The key only needs GoatCounter's statistics-read permission. It does not need
 site-read or write access.
+
+## Production schedule
+
+Ash dispatches `pages.yml` through GitHub's `workflow_dispatch` API at minutes 0
+and 30. The tracked host files are in `ops/ash/` and are installed as:
+
+- `/usr/local/sbin/vpx-stats-refresh`
+- `/etc/cron.d/vpx-stats-refresh`
+
+The GitHub API credential is stored separately in the root-only
+`/etc/vpx-stats-refresh/curl.conf`; it is never committed. Each successful or
+failed dispatch is written to the system log with the `vpx-stats-refresh` tag.
 
 ## Local development
 
