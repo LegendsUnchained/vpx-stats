@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="The Legends Unchained community table-play leaderboard, refreshed hourly."
+      content="The Legends Unchained community table-play leaderboard, refreshed every 30 minutes."
     />
     <meta name="theme-color" content="#100a1f" />
     <title>VPX Table Leaderboard · Legends Unchained</title>
@@ -60,7 +60,7 @@
         <h1>See what the community<br /><em>keeps coming back to.</em></h1>
         <p class="hero-copy">
           A live ranking of VPX tables played on Legends Unchained cabinets.
-          Anonymous, aggregated, and refreshed every hour.
+          Anonymous, aggregated, and refreshed every 30 minutes.
         </p>
 
         <div class="hero-stats" aria-live="polite">
@@ -90,16 +90,37 @@
             <p class="section-kicker">Community favorites</p>
             <h2 id="leaderboard-title">Table leaderboard</h2>
           </div>
-          <div
-            class="period-tabs"
-            role="tablist"
-            aria-label="Leaderboard time period"
-          >
-            <button type="button" role="tab" data-period="day">Day</button>
-            <button type="button" role="tab" data-period="week">Week</button>
-            <button type="button" role="tab" data-period="month">Month</button>
-            <button type="button" role="tab" data-period="year">Year</button>
-            <button type="button" role="tab" data-period="all">All time</button>
+          <div class="leaderboard-controls">
+            <div class="filter-control">
+              <span class="filter-label">Cabinet</span>
+              <div
+                class="model-tabs"
+                role="tablist"
+                aria-label="Cabinet model"
+              >
+                <button type="button" role="tab" data-model="all">All</button>
+                <button type="button" role="tab" data-model="HA9919">
+                  HA9919
+                </button>
+                <button type="button" role="tab" data-model="HA9920">
+                  HA9920
+                </button>
+              </div>
+            </div>
+            <div class="filter-control">
+              <span class="filter-label">Period</span>
+              <div
+                class="period-tabs"
+                role="tablist"
+                aria-label="Leaderboard time period"
+              >
+                <button type="button" role="tab" data-period="day">Day</button>
+                <button type="button" role="tab" data-period="week">Week</button>
+                <button type="button" role="tab" data-period="month">Month</button>
+                <button type="button" role="tab" data-period="year">Year</button>
+                <button type="button" role="tab" data-period="all">All time</button>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -5,7 +5,9 @@ import {
 } from "./table-manager.mjs";
 
 const PERIODS = ["day", "week", "month", "year", "all"];
+const MODELS = ["all", "HA9919", "HA9920"];
 const DEFAULT_PERIOD = "month";
+const DEFAULT_MODEL = "all";
 const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const TABLE_MANAGER_REFRESH_MS = 20 * 1000;
 
@@ -26,6 +28,7 @@ const elements = {
   search: document.querySelector("#table-search"),
   noResults: document.querySelector("#no-results"),
   tabs: [...document.querySelectorAll("[data-period]")],
+  modelTabs: [...document.querySelectorAll("[data-model]")],
   cabinetDialog: document.querySelector("#cabinet-dialog"),
   cabinetDialogTable: document.querySelector("#cabinet-dialog-table"),
   cabinetList: document.querySelector("#cabinet-list"),
@@ -36,6 +39,7 @@ const elements = {
 const state = {
   data: null,
   period: initialPeriod(),
+  model: initialModel(),
   query: "",
   tableManager: { mode: "hidden", devices: [] },
 };
@@ -47,6 +51,11 @@ let installStatusTimer;
 function initialPeriod() {
   const requested = new URLSearchParams(window.location.search).get("period");
   return PERIODS.includes(requested) ? requested : DEFAULT_PERIOD;
+}
+
+function initialModel() {
+  const requested = new URLSearchParams(window.location.search).get("model");
+  return MODELS.includes(requested) ? requested : DEFAULT_MODEL;
 }
 
 function formatNumber(value) {
@@ -95,7 +104,11 @@ function tableEntries() {
     .map(([id, table]) => ({
       id,
       ...table,
-      count: Number(table.counts[state.period] ?? 0),
+      count: Number(
+        state.model === "all"
+          ? table.counts[state.period]
+          : table.modelCounts?.[state.model]?.[state.period],
+      ) || 0,
     }))
     .sort(
       (left, right) =>
@@ -298,16 +311,25 @@ function renderRanking(entries) {
 function render() {
   if (!state.data) return;
   const period = state.data.periods[state.period];
+  const summary = state.model === "all" ? period : period.models[state.model];
   const entries = tableEntries();
 
-  elements.totalPlays.textContent = formatNumber(period.totalPlays);
-  elements.activeTables.textContent = `${formatNumber(period.activeTables)} / ${formatNumber(entries.length)}`;
+  elements.totalPlays.textContent = formatNumber(summary.totalPlays);
+  elements.activeTables.textContent = `${formatNumber(summary.activeTables)} / ${formatNumber(entries.length)}`;
   elements.lastRefreshed.textContent = formatUpdated(state.data.generatedAt);
-  elements.periodLabel.textContent = period.label;
+  elements.periodLabel.textContent =
+    state.model === "all"
+      ? `${period.label} · All cabinets`
+      : `${period.label} · ${state.model}`;
   elements.periodWindow.textContent = formatWindow(period);
 
   for (const tab of elements.tabs) {
     const selected = tab.dataset.period === state.period;
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  }
+  for (const tab of elements.modelTabs) {
+    const selected = tab.dataset.model === state.model;
     tab.setAttribute("aria-selected", String(selected));
     tab.tabIndex = selected ? 0 : -1;
   }
@@ -325,17 +347,32 @@ function selectPeriod(period) {
   render();
 }
 
+function selectModel(model) {
+  if (!MODELS.includes(model)) return;
+  state.model = model;
+  const url = new URL(window.location.href);
+  if (model === DEFAULT_MODEL) url.searchParams.delete("model");
+  else url.searchParams.set("model", model);
+  window.history.replaceState({}, "", url);
+  render();
+}
+
 function validateDataset(data) {
   if (
-    data?.schemaVersion !== 1 ||
+    data?.schemaVersion !== 2 ||
     typeof data.generatedAt !== "string" ||
+    !Array.isArray(data.modelDefinitions) ||
     !data.periods ||
     !data.tables
   ) {
     throw new Error("The published stats file has an unsupported format.");
   }
   for (const period of PERIODS) {
-    if (!data.periods[period])
+    if (
+      !data.periods[period] ||
+      !data.periods[period].models?.HA9919 ||
+      !data.periods[period].models?.HA9920
+    )
       throw new Error(`The stats file is missing ${period} data.`);
   }
   return data;
@@ -412,6 +449,21 @@ for (const tab of elements.tabs) {
     selectPeriod(next);
     elements.tabs
       .find((candidate) => candidate.dataset.period === next)
+      ?.focus();
+  });
+}
+
+for (const tab of elements.modelTabs) {
+  tab.addEventListener("click", () => selectModel(tab.dataset.model));
+  tab.addEventListener("keydown", (event) => {
+    if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    const direction = event.key === "ArrowRight" ? 1 : -1;
+    const index = MODELS.indexOf(state.model);
+    const next = MODELS[(index + direction + MODELS.length) % MODELS.length];
+    selectModel(next);
+    elements.modelTabs
+      .find((candidate) => candidate.dataset.model === next)
       ?.focus();
   });
 }

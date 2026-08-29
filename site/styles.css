@@ -294,7 +294,29 @@ a {
   letter-spacing: -0.045em;
 }
 
-.period-tabs {
+.leaderboard-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.filter-control {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filter-label {
+  padding-left: 6px;
+  color: #777084;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.period-tabs,
+.model-tabs {
   display: flex;
   gap: 4px;
   padding: 5px;
@@ -303,7 +325,8 @@ a {
   background: rgba(18, 12, 31, 0.68);
 }
 
-.period-tabs button {
+.period-tabs button,
+.model-tabs button {
   min-width: 66px;
   padding: 9px 13px;
   border: 0;
@@ -316,17 +339,24 @@ a {
   transition: 150ms ease;
 }
 
-.period-tabs button:hover {
+.model-tabs button {
+  min-width: 74px;
+}
+
+.period-tabs button:hover,
+.model-tabs button:hover {
   color: #fff;
 }
 
-.period-tabs button[aria-selected="true"] {
+.period-tabs button[aria-selected="true"],
+.model-tabs button[aria-selected="true"] {
   background: linear-gradient(135deg, var(--pink), #d92c88);
   box-shadow: 0 7px 25px rgba(255, 39, 109, 0.22);
   color: #fff;
 }
 
 .period-tabs button:focus-visible,
+.model-tabs button:focus-visible,
 .search-box:focus-within,
 .source-link:focus-visible,
 .error-state button:focus-visible,
@@ -1037,11 +1067,18 @@ a {
     align-items: flex-start;
     flex-direction: column;
   }
-  .period-tabs {
+  .leaderboard-controls {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .period-tabs,
+  .model-tabs {
     width: 100%;
     overflow-x: auto;
   }
-  .period-tabs button {
+  .period-tabs button,
+  .model-tabs button {
     min-width: 62px;
     flex: 1;
   }
@@ -1119,6 +1156,11 @@ a {
   .period-tabs button {
     padding-inline: 10px;
     font-size: 0.7rem;
+  }
+  .model-tabs button {
+    min-width: 0;
+    flex: 1;
+    font-size: 0.68rem;
   }
 
   .podium-section {
