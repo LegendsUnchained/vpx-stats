@@ -214,8 +214,8 @@ test("compileDataset keys output by stable table ID and resolves metadata", () =
 
   assert.equal(dataset.schemaVersion, 2);
   assert.deepEqual(dataset.modelDefinitions, [
-    { key: "HA9919", label: "HA9919" },
-    { key: "HA9920", label: "HA9920" },
+    { key: "HA9919", label: "HDP" },
+    { key: "HA9920", label: "4KP" },
   ]);
   assert.deepEqual(Object.keys(dataset.tables), ["vpx-one", "vpx-two"]);
   assert.equal(dataset.tables["vpx-one"].name, "Table One (Bally 1992)");

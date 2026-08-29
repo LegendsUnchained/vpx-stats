@@ -99,6 +99,12 @@ function metadata(table) {
   return parts.join(" · ") || "VPX table";
 }
 
+function modelLabel(model) {
+  return (
+    state.data.modelDefinitions.find(({ key }) => key === model)?.label ?? model
+  );
+}
+
 function tableEntries() {
   return Object.entries(state.data.tables)
     .map(([id, table]) => ({
@@ -320,7 +326,7 @@ function render() {
   elements.periodLabel.textContent =
     state.model === "all"
       ? `${period.label} · All cabinets`
-      : `${period.label} · ${state.model}`;
+      : `${period.label} · ${modelLabel(state.model)}`;
   elements.periodWindow.textContent = formatWindow(period);
 
   for (const tab of elements.tabs) {

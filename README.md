@@ -22,7 +22,7 @@ Ash cron dispatches it at minutes 0 and 30 of every hour. The workflow:
 2. Reads GoatCounter's ranked event paths for rolling day, week, month, year, and
    all-time windows.
 3. Reads each played path's referrer totals and groups the leading referrer
-   value into HA9919 and HA9920 cabinet-model counts.
+   value into HDP (`HA9919`) and 4KP (`HA9920`) cabinet-model counts.
 4. Resolves each `vpx-*` path to its manifest metadata and launcher artwork.
 5. Writes `site/data/stats.json` and deploys the complete `site/` directory to
    GitHub Pages.
@@ -52,8 +52,8 @@ launcher and Table Manager:
   "schemaVersion": 2,
   "generatedAt": "2026-08-28T20:17:09.241Z",
   "modelDefinitions": [
-    { "key": "HA9919", "label": "HA9919" },
-    { "key": "HA9920", "label": "HA9920" }
+    { "key": "HA9919", "label": "HDP" },
+    { "key": "HA9920", "label": "4KP" }
   ],
   "source": {
     "manifestRelease": "v2.0.9"

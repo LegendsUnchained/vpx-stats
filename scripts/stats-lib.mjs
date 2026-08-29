@@ -10,8 +10,8 @@ export const PERIOD_DEFINITIONS = Object.freeze([
 ]);
 
 export const MODEL_DEFINITIONS = Object.freeze([
-  Object.freeze({ key: "HA9919", label: "HA9919" }),
-  Object.freeze({ key: "HA9920", label: "HA9920" }),
+  Object.freeze({ key: "HA9919", label: "HDP" }),
+  Object.freeze({ key: "HA9920", label: "4KP" }),
 ]);
 
 const MODEL_KEYS = new Set(MODEL_DEFINITIONS.map(({ key }) => key));

@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
+  MODEL_DEFINITIONS,
   PERIOD_DEFINITIONS,
   buildPeriodRanges,
   canReuseDataset,
@@ -90,6 +91,9 @@ async function main() {
         `${PUBLISHED_DATA_URL}?refresh=${Date.now()}`,
       );
       if (canReuseDataset(published, ranges)) {
+        // Labels are presentation metadata and can be updated without querying
+        // GoatCounter again for an otherwise-current dataset.
+        published.modelDefinitions = MODEL_DEFINITIONS;
         await writeDataset(published, output);
         console.log(
           `Reused the published ${ranges.all.end} dataset; no GoatCounter requests were needed.`,
