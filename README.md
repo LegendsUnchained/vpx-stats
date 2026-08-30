@@ -33,10 +33,18 @@ breakdown whenever the table's count is unchanged. Because ranges end on an hour
 boundary, the second half-hourly dispatch reuses the published dataset when it
 belongs to that same hour.
 
+At a new hour, fixed-start windows also reuse each unchanged table's aggregate
+model counts from the previously published JSON. A table is queried again when
+its total changes, when its rolling window start moves, or when no valid prior
+aggregate exists. Raw referrers are never added to the cache or public contract.
+
 API requests are kept below four per second. The client reads GoatCounter's
 `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Reset` headers;
 it waits for short resets and stops cleanly on a long exhausted quota so a later
-scheduled dispatch can retry without sending requests before the reset.
+scheduled dispatch can retry without sending requests before the reset. Network
+errors, interrupted response bodies, transient 404/408/425 responses, and server
+errors use bounded exponential retries with jitter. Retry and terminal messages
+include the request URL and underlying transport cause where available.
 
 The generated JSON is a deployment artifact, not a stream of scheduled commits. The
 API token is only available to the workflow process and is never included in the
@@ -162,8 +170,9 @@ npm run fetch -- --force
 python3 -m http.server 4173 --directory site
 ```
 
-Omit `--force` to reuse the current published JSON when it already covers the
-same hourly range. Use it when intentionally validating a fresh API run.
+Omit `--force` to reuse the current published JSON for the same hour and to reuse
+unchanged fixed-window aggregates during a new-hour fetch. Use `--force` when
+intentionally validating a completely fresh API run.
 
 Then open `http://localhost:4173/`. `site/data/stats.json` is ignored by Git so a
 local live-data run cannot accidentally commit a statistics snapshot.

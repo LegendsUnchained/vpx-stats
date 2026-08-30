@@ -10,9 +10,7 @@ import {
   buildPeriodRanges,
   canReuseDataset,
   compileDataset,
-  fetchAllHits,
-  fetchRefsByPath,
-  groupPeriodRanges,
+  fetchPeriodStats,
 } from "./stats-lib.mjs";
 import { createGoatCounterClient } from "./goatcounter-client.mjs";
 
@@ -84,17 +82,18 @@ async function main() {
   const output = outputPathFromArgs(args);
   const generatedAt = new Date();
   const ranges = buildPeriodRanges(generatedAt, ALL_TIME_START);
+  let publishedDataset = null;
 
   if (!forceFromArgs(args)) {
     try {
-      const published = await publicJson(
+      publishedDataset = await publicJson(
         `${PUBLISHED_DATA_URL}?refresh=${Date.now()}`,
       );
-      if (canReuseDataset(published, ranges)) {
+      if (canReuseDataset(publishedDataset, ranges)) {
         // Labels are presentation metadata and can be updated without querying
         // GoatCounter again for an otherwise-current dataset.
-        published.modelDefinitions = MODEL_DEFINITIONS;
-        await writeDataset(published, output);
+        publishedDataset.modelDefinitions = MODEL_DEFINITIONS;
+        await writeDataset(publishedDataset, output);
         console.log(
           `Reused the published ${ranges.all.end} dataset; no GoatCounter requests were needed.`,
         );
@@ -116,36 +115,21 @@ async function main() {
   const { manifest, manifestUrl, releaseTag } = await loadManifest(process.env.GITHUB_TOKEN);
   console.log(`Resolved ${Object.keys(manifest).length} tables from ${releaseTag}.`);
 
-  const hitsByPeriod = {};
-  const refsByPeriod = {};
-  const completedRanges = [];
-
-  for (const { range, periodKeys } of groupPeriodRanges(ranges)) {
-    const hits = await fetchAllHits(range, requestJson);
-    const fallback = completedRanges.find(
-      (completed) =>
-        completed.range.end === range.end &&
-        completed.range.start <= range.start,
-    );
-    const refsByPath = await fetchRefsByPath(
-      range,
-      hits,
-      requestJson,
-      fallback,
-    );
-
-    for (const key of periodKeys) {
-      hitsByPeriod[key] = hits;
-      refsByPeriod[key] = refsByPath;
-    }
-    completedRanges.push({ range, hits, refsByPath });
-
+  const { hitsByPeriod, refsByPeriod, groups } = await fetchPeriodStats(
+    ranges,
+    requestJson,
+    publishedDataset,
+  );
+  for (const { periodKeys, hits, metrics } of groups) {
     const labels = periodKeys.map(
       (key) => PERIOD_DEFINITIONS.find((period) => period.key === key).label,
     );
+    const publishedReuses = metrics.reusedBySource?.published ?? 0;
     console.log(
       `${labels.join(", ")}: ${hits.length} played table path(s), ` +
-        `${refsByPath.size} referrer breakdown(s).`,
+        `${metrics.fetched} fetched and ${metrics.reused} reused ` +
+        `referrer breakdown(s)` +
+        `${publishedReuses ? ` (${publishedReuses} from the previous dataset)` : ""}.`,
     );
   }
 
@@ -170,6 +154,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
+  console.error(error instanceof Error ? error.stack : error);
   process.exitCode = 1;
 });

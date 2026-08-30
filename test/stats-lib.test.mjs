@@ -5,8 +5,10 @@ import {
   buildPeriodRanges,
   canReuseDataset,
   compileDataset,
+  datasetRefFallback,
   fetchAllHits,
   fetchAllRefs,
+  fetchPeriodStats,
   fetchRefsByPath,
   groupPeriodRanges,
   launcherImageUrl,
@@ -138,6 +140,7 @@ test("fetchRefsByPath reuses wider referrers when counts are unchanged", async (
   };
   const reusedRefs = [{ name: "HA9920 2.1.0-13", count: 3 }];
   const requested = [];
+  const metrics = {};
 
   const refs = await fetchRefsByPath(
     narrowRange,
@@ -150,6 +153,7 @@ test("fetchRefsByPath reuses wider referrers when counts are unchanged", async (
       return { refs: [{ name: "HA9919 2.1.0-13", count: 1 }], more: false };
     },
     {
+      source: "current-range",
       range: widerRange,
       hits: [
         { path_id: 10, path: "vpx-unchanged", count: 3 },
@@ -157,10 +161,223 @@ test("fetchRefsByPath reuses wider referrers when counts are unchanged", async (
       ],
       refsByPath: new Map([["vpx-unchanged", reusedRefs]]),
     },
+    metrics,
   );
 
   assert.equal(refs.get("vpx-unchanged"), reusedRefs);
   assert.deepEqual(requested, ["/api/v0/stats/hits/11"]);
+  assert.deepEqual(metrics, {
+    fetched: 1,
+    reused: 1,
+    reusedBySource: { "current-range": 1 },
+  });
+});
+
+test("datasetRefFallback reconstructs exact published model aggregates", () => {
+  const fallback = datasetRefFallback(
+    {
+      schemaVersion: 2,
+      periods: {
+        all: {
+          start: "2026-08-26T00:00:00.000Z",
+          end: "2026-08-29T14:00:00.000Z",
+        },
+      },
+      tables: {
+        "vpx-known": {
+          counts: { all: 5 },
+          modelCounts: {
+            HA9919: { all: 2 },
+            HA9920: { all: 3 },
+          },
+        },
+        "vpx-direct": {
+          counts: { all: 2 },
+          modelCounts: {
+            HA9919: { all: 0 },
+            HA9920: { all: 0 },
+          },
+        },
+        "vpx-invalid": {
+          counts: { all: 1 },
+          modelCounts: {
+            HA9919: { all: 2 },
+            HA9920: { all: 0 },
+          },
+        },
+      },
+    },
+    "all",
+  );
+
+  assert.deepEqual(fallback.range, {
+    start: "2026-08-26T00:00:00.000Z",
+    end: "2026-08-29T14:00:00.000Z",
+  });
+  assert.deepEqual(fallback.hits, [
+    { path: "vpx-known", count: 5 },
+    { path: "vpx-direct", count: 2 },
+  ]);
+  assert.deepEqual(fallback.refsByPath.get("vpx-known"), [
+    { name: "HA9919 cached aggregate", count: 2 },
+    { name: "HA9920 cached aggregate", count: 3 },
+  ]);
+  assert.deepEqual(fallback.refsByPath.get("vpx-direct"), []);
+  assert.equal(fallback.refsByPath.has("vpx-invalid"), false);
+});
+
+test("fetchRefsByPath reuses an earlier same-start published aggregate", async () => {
+  const requested = [];
+  const metrics = {};
+  const refs = await fetchRefsByPath(
+    {
+      start: "2026-08-26T00:00:00.000Z",
+      end: "2026-08-29T15:00:00.000Z",
+    },
+    [
+      { path_id: 10, path: "vpx-unchanged", count: 5 },
+      { path_id: 11, path: "vpx-changed", count: 6 },
+    ],
+    async (url) => {
+      requested.push(url.pathname);
+      return { refs: [{ name: "HA9920 2.1.0-13", count: 6 }], more: false };
+    },
+    {
+      source: "published",
+      range: {
+        start: "2026-08-26T00:00:00.000Z",
+        end: "2026-08-29T14:00:00.000Z",
+      },
+      hits: [
+        { path: "vpx-unchanged", count: 5 },
+        { path: "vpx-changed", count: 5 },
+      ],
+      refsByPath: new Map([
+        ["vpx-unchanged", [{ name: "HA9919 cached aggregate", count: 5 }]],
+        ["vpx-changed", [{ name: "HA9919 cached aggregate", count: 5 }]],
+      ]),
+    },
+    metrics,
+  );
+
+  assert.equal(refs.get("vpx-unchanged")[0].count, 5);
+  assert.deepEqual(requested, ["/api/v0/stats/hits/11"]);
+  assert.deepEqual(metrics, {
+    fetched: 1,
+    reused: 1,
+    reusedBySource: { published: 1 },
+  });
+});
+
+test("fetchRefsByPath does not reuse a shifted rolling window", async () => {
+  const requested = [];
+  await fetchRefsByPath(
+    {
+      start: "2026-08-28T15:00:00.000Z",
+      end: "2026-08-29T15:00:00.000Z",
+    },
+    [{ path_id: 10, path: "vpx-one", count: 5 }],
+    async (url) => {
+      requested.push(url.pathname);
+      return { refs: [], more: false };
+    },
+    {
+      source: "published",
+      range: {
+        start: "2026-08-28T14:00:00.000Z",
+        end: "2026-08-29T14:00:00.000Z",
+      },
+      hits: [{ path: "vpx-one", count: 5 }],
+      refsByPath: new Map([["vpx-one", []]]),
+    },
+  );
+
+  assert.deepEqual(requested, ["/api/v0/stats/hits/10"]);
+});
+
+test("fetchPeriodStats reuses the previous fixed window end to end", async () => {
+  const ranges = buildPeriodRanges(
+    "2026-08-30T01:30:00Z",
+    "2026-08-26T00:00:00Z",
+  );
+  const previousPeriods = Object.fromEntries(
+    Object.entries(buildPeriodRanges(
+      "2026-08-30T00:30:00Z",
+      "2026-08-26T00:00:00Z",
+    )).map(([key, range]) => [key, { ...range }]),
+  );
+  const periodCounts = {
+    day: 5,
+    week: 5,
+    month: 5,
+    year: 5,
+    all: 5,
+  };
+  const previousDataset = {
+    schemaVersion: 2,
+    periods: previousPeriods,
+    tables: {
+      "vpx-unchanged": {
+        counts: { ...periodCounts },
+        modelCounts: {
+          HA9919: { day: 2, week: 2, month: 2, year: 2, all: 2 },
+          HA9920: { day: 3, week: 3, month: 3, year: 3, all: 3 },
+        },
+      },
+      "vpx-changed": {
+        counts: { ...periodCounts },
+        modelCounts: {
+          HA9919: { day: 5, week: 5, month: 5, year: 5, all: 5 },
+          HA9920: { day: 0, week: 0, month: 0, year: 0, all: 0 },
+        },
+      },
+    },
+  };
+  const urls = [];
+
+  const result = await fetchPeriodStats(
+    ranges,
+    async (url) => {
+      urls.push(url);
+      if (url.pathname === "/api/v0/stats/hits") {
+        return {
+          hits: [
+            { path_id: 10, path: "vpx-unchanged", count: 5 },
+            { path_id: 11, path: "vpx-changed", count: 6 },
+          ],
+          more: false,
+        };
+      }
+      assert.equal(url.pathname, "/api/v0/stats/hits/11");
+      return {
+        refs: [{ name: "HA9920 2.1.0-13", count: 6 }],
+        more: false,
+      };
+    },
+    previousDataset,
+  );
+
+  assert.equal(urls.length, 3);
+  assert.equal(
+    urls.filter((url) => url.pathname === "/api/v0/stats/hits/11").length,
+    1,
+  );
+  assert.equal(result.refsByPeriod.all.get("vpx-unchanged")[0].count, 2);
+  assert.equal(result.refsByPeriod.all.get("vpx-changed")[0].count, 6);
+  assert.equal(
+    result.refsByPeriod.day.get("vpx-unchanged"),
+    result.refsByPeriod.all.get("vpx-unchanged"),
+  );
+  assert.deepEqual(result.groups[0].metrics, {
+    fetched: 1,
+    reused: 1,
+    reusedBySource: { published: 1 },
+  });
+  assert.deepEqual(result.groups[1].metrics, {
+    fetched: 0,
+    reused: 2,
+    reusedBySource: { "current-range": 2 },
+  });
 });
 
 test("modelFromReferrer recognizes supported cabinet models", () => {

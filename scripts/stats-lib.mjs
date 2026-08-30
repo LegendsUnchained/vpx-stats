@@ -98,6 +98,59 @@ export function canReuseDataset(dataset, ranges) {
   });
 }
 
+export function datasetRefFallback(dataset, periodKey) {
+  const period = dataset?.periods?.[periodKey];
+  if (
+    dataset?.schemaVersion !== 2 ||
+    !period?.start ||
+    !period?.end ||
+    !dataset.tables ||
+    !PERIOD_DEFINITIONS.some(({ key }) => key === periodKey)
+  ) {
+    return null;
+  }
+
+  const hits = [];
+  const refsByPath = new Map();
+
+  for (const [path, table] of Object.entries(dataset.tables)) {
+    const total = table?.counts?.[periodKey];
+    const modelCounts = Object.fromEntries(
+      MODEL_DEFINITIONS.map(({ key: model }) => [
+        model,
+        table?.modelCounts?.[model]?.[periodKey],
+      ]),
+    );
+    if (
+      !Number.isFinite(total) ||
+      total <= 0 ||
+      Object.values(modelCounts).some(
+        (count) => !Number.isFinite(count) || count < 0,
+      ) ||
+      Object.values(modelCounts).reduce((sum, count) => sum + count, 0) > total
+    ) {
+      continue;
+    }
+
+    hits.push({ path, count: total });
+    refsByPath.set(
+      path,
+      MODEL_DEFINITIONS.flatMap(({ key: model }) =>
+        modelCounts[model] > 0
+          ? [{ name: `${model} cached aggregate`, count: modelCounts[model] }]
+          : [],
+      ),
+    );
+  }
+
+  return {
+    source: "published",
+    range: { start: period.start, end: period.end },
+    hits,
+    refsByPath,
+  };
+}
+
 export function launcherImageUrl(repository, releaseTag, tableId) {
   const [owner, repo] = repository.split("/");
   if (!owner || !repo) {
@@ -193,15 +246,32 @@ export async function fetchRefsByPath(
   hits,
   requestJson,
   fallback = null,
+  metrics = null,
 ) {
   const refsByPath = new Map();
-  const canUseFallback =
-    fallback?.range?.end === range.end &&
-    fallback.range.start <= range.start &&
-    fallback.refsByPath instanceof Map;
-  const fallbackCounts = canUseFallback
-    ? countHitsByPath(fallback.hits ?? [])
-    : new Map();
+  const fallbackCandidates = (Array.isArray(fallback) ? fallback : [fallback])
+    .filter((candidate) => {
+      if (!candidate?.range || !(candidate.refsByPath instanceof Map)) {
+        return false;
+      }
+      const sameEndWiderRange =
+        candidate.range.end === range.end &&
+        candidate.range.start <= range.start;
+      const sameStartEarlierRange =
+        candidate.range.start === range.start &&
+        candidate.range.end <= range.end;
+      return sameEndWiderRange || sameStartEarlierRange;
+    })
+    .map((candidate) => ({
+      ...candidate,
+      counts: countHitsByPath(candidate.hits ?? []),
+    }));
+
+  if (metrics) {
+    metrics.fetched = 0;
+    metrics.reused = 0;
+    metrics.reusedBySource = {};
+  }
 
   for (const hit of hits) {
     if (
@@ -212,20 +282,77 @@ export async function fetchRefsByPath(
     ) {
       continue;
     }
-    if (
-      fallbackCounts.get(hit.path) === hit.count &&
-      fallback.refsByPath.has(hit.path)
-    ) {
-      refsByPath.set(hit.path, fallback.refsByPath.get(hit.path));
+    const reusable = fallbackCandidates.find(
+      (candidate) =>
+        candidate.counts.get(hit.path) === hit.count &&
+        candidate.refsByPath.has(hit.path),
+    );
+    if (reusable) {
+      refsByPath.set(hit.path, reusable.refsByPath.get(hit.path));
+      if (metrics) {
+        metrics.reused += 1;
+        const source = reusable.source ?? "current-range";
+        metrics.reusedBySource[source] =
+          (metrics.reusedBySource[source] ?? 0) + 1;
+      }
       continue;
     }
     refsByPath.set(
       hit.path,
       await fetchAllRefs(hit.path_id, range, requestJson),
     );
+    if (metrics) metrics.fetched += 1;
   }
 
   return refsByPath;
+}
+
+export async function fetchPeriodStats(
+  ranges,
+  requestJson,
+  publishedDataset = null,
+) {
+  const hitsByPeriod = {};
+  const refsByPeriod = {};
+  const completedRanges = [];
+  const groups = [];
+
+  for (const { range, periodKeys } of groupPeriodRanges(ranges)) {
+    const hits = await fetchAllHits(range, requestJson);
+    const publishedFallback = periodKeys
+      .map((key) => datasetRefFallback(publishedDataset, key))
+      .find(
+        (candidate) =>
+          candidate?.range.start === range.start &&
+          candidate.range.end <= range.end,
+      );
+    const fallbacks = [
+      ...completedRanges,
+      ...(publishedFallback ? [publishedFallback] : []),
+    ];
+    const metrics = {};
+    const refsByPath = await fetchRefsByPath(
+      range,
+      hits,
+      requestJson,
+      fallbacks,
+      metrics,
+    );
+
+    for (const key of periodKeys) {
+      hitsByPeriod[key] = hits;
+      refsByPeriod[key] = refsByPath;
+    }
+    completedRanges.push({
+      source: "current-range",
+      range,
+      hits,
+      refsByPath,
+    });
+    groups.push({ periodKeys, range, hits, refsByPath, metrics });
+  }
+
+  return { hitsByPeriod, refsByPeriod, groups };
 }
 
 export function modelFromReferrer(value) {

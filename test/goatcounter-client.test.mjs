@@ -52,6 +52,7 @@ test("client waits for the reset header before retrying a 429", async () => {
       sleeps.push(milliseconds);
       clock += milliseconds;
     },
+    log: () => {},
   });
 
   assert.deepEqual(await client("https://example.test"), {
@@ -75,6 +76,7 @@ test("client stops instead of waiting through a long exhausted quota", async () 
     },
     now: () => 0,
     sleepImpl: async () => {},
+    log: () => {},
   });
 
   await client("https://example.test/first");
@@ -99,9 +101,110 @@ test("client spaces successful requests below four per second", async () => {
       sleeps.push(milliseconds);
       clock += milliseconds;
     },
+    log: () => {},
   });
 
   await client("https://example.test/one");
   await client("https://example.test/two");
   assert.deepEqual(sleeps, [300]);
+});
+
+test("client retries transport failures with the URL and socket cause logged", async () => {
+  let clock = 0;
+  let calls = 0;
+  const sleeps = [];
+  const logs = [];
+  const client = createGoatCounterClient("test-token", {
+    fetchImpl: async () => {
+      calls += 1;
+      if (calls === 1) {
+        throw new TypeError("fetch failed", {
+          cause: Object.assign(new Error("connection reset by peer"), {
+            code: "ECONNRESET",
+          }),
+        });
+      }
+      return jsonResponse(200, { ok: true });
+    },
+    now: () => clock,
+    random: () => 0.5,
+    minRequestGapMs: 0,
+    sleepImpl: async (milliseconds) => {
+      sleeps.push(milliseconds);
+      clock += milliseconds;
+    },
+    log: (message) => logs.push(message),
+  });
+
+  assert.deepEqual(await client("https://example.test/stats?period=all"), {
+    ok: true,
+  });
+  assert.equal(calls, 2);
+  assert.deepEqual(sleeps, [500]);
+  assert.match(logs[0], /example\.test\/stats\?period=all/);
+  assert.match(logs[0], /ECONNRESET: connection reset by peer/);
+  assert.match(logs[0], /attempt 1\/5/);
+});
+
+test("client retries transient 404 responses", async () => {
+  let calls = 0;
+  const sleeps = [];
+  const client = createGoatCounterClient("test-token", {
+    fetchImpl: async () => {
+      calls += 1;
+      return calls === 1
+        ? jsonResponse(404, { error: "not found" })
+        : jsonResponse(200, { refs: [], more: false });
+    },
+    random: () => 0.5,
+    minRequestGapMs: 0,
+    sleepImpl: async (milliseconds) => sleeps.push(milliseconds),
+    log: () => {},
+  });
+
+  assert.deepEqual(await client("https://example.test/path/42"), {
+    refs: [],
+    more: false,
+  });
+  assert.equal(calls, 2);
+  assert.deepEqual(sleeps, [500]);
+});
+
+test("client retries an interrupted or malformed response body", async () => {
+  let calls = 0;
+  const client = createGoatCounterClient("test-token", {
+    fetchImpl: async () => {
+      calls += 1;
+      return calls === 1
+        ? new Response("{", { status: 200 })
+        : jsonResponse(200, { ok: true });
+    },
+    random: () => 0.5,
+    minRequestGapMs: 0,
+    sleepImpl: async () => {},
+    log: () => {},
+  });
+
+  assert.deepEqual(await client("https://example.test/stats"), { ok: true });
+  assert.equal(calls, 2);
+});
+
+test("client reports the URL and cause after transport retries are exhausted", async () => {
+  const client = createGoatCounterClient("test-token", {
+    fetchImpl: async () => {
+      throw new TypeError("fetch failed", {
+        cause: Object.assign(new Error("socket closed"), { code: "UND_ERR_SOCKET" }),
+      });
+    },
+    minRequestGapMs: 0,
+    baseRetryDelayMs: 0,
+    sleepImpl: async () => {},
+    log: () => {},
+  });
+
+  await assert.rejects(
+    client("https://example.test/stats/hits/99"),
+    /GET https:\/\/example\.test\/stats\/hits\/99 failed after 5 attempts:.*UND_ERR_SOCKET: socket closed/,
+  );
+  assert.equal(client.requestCount(), 5);
 });
