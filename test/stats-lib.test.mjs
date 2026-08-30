@@ -15,7 +15,7 @@ import {
   modelFromReferrer,
 } from "../scripts/stats-lib.mjs";
 
-test("buildPeriodRanges creates rolling UTC windows", () => {
+test("buildPeriodRanges creates rolling half-hour UTC windows", () => {
   const ranges = buildPeriodRanges(
     "2026-08-28T16:42:19Z",
     "2026-08-20T10:34:00Z",
@@ -23,13 +23,13 @@ test("buildPeriodRanges creates rolling UTC windows", () => {
 
   assert.deepEqual(ranges.day, {
     label: "Last 24 hours",
-    start: "2026-08-27T16:00:00.000Z",
-    end: "2026-08-28T16:00:00.000Z",
+    start: "2026-08-27T16:30:00.000Z",
+    end: "2026-08-28T16:30:00.000Z",
   });
-  assert.equal(ranges.week.start, "2026-08-21T16:00:00.000Z");
-  assert.equal(ranges.month.start, "2026-08-20T10:00:00.000Z");
-  assert.equal(ranges.year.start, "2026-08-20T10:00:00.000Z");
-  assert.equal(ranges.all.start, "2026-08-20T10:00:00.000Z");
+  assert.equal(ranges.week.start, "2026-08-21T16:30:00.000Z");
+  assert.equal(ranges.month.start, "2026-08-20T10:30:00.000Z");
+  assert.equal(ranges.year.start, "2026-08-20T10:30:00.000Z");
+  assert.equal(ranges.all.start, "2026-08-20T10:30:00.000Z");
 });
 
 test("period ranges never query before telemetry began", () => {
@@ -38,7 +38,7 @@ test("period ranges never query before telemetry began", () => {
     "2026-08-26T00:00:00Z",
   );
 
-  assert.equal(ranges.day.start, "2026-08-28T14:00:00.000Z");
+  assert.equal(ranges.day.start, "2026-08-28T14:30:00.000Z");
   for (const period of ["week", "month", "year", "all"]) {
     assert.equal(ranges[period].start, "2026-08-26T00:00:00.000Z");
   }

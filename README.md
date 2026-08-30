@@ -29,14 +29,15 @@ Ash cron dispatches it at minutes 0 and 30 of every hour. The workflow:
 
 No query starts before the first telemetry event on August 26, 2026. Equal
 windows are fetched once, and narrower windows reuse a wider window's referrer
-breakdown whenever the table's count is unchanged. Because ranges end on an hour
-boundary, the second half-hourly dispatch reuses the published dataset when it
-belongs to that same hour.
+breakdown whenever the table's count is unchanged. Ranges end on 00- and
+30-minute boundaries, so every scheduled dispatch produces a genuinely new data
+window. Duplicate runs inside the same half-hour reuse the published dataset.
 
-At a new hour, fixed-start windows also reuse each unchanged table's aggregate
-model counts from the previously published JSON. A table is queried again when
-its total changes, when its rolling window start moves, or when no valid prior
-aggregate exists. Raw referrers are never added to the cache or public contract.
+At a new half-hour, fixed-start windows also reuse each unchanged table's
+aggregate model counts from the previously published JSON. A table is queried
+again when its total changes, when its rolling window start moves, or when no
+valid prior aggregate exists. Raw referrers are never added to the cache or
+public contract.
 
 API requests are kept below four per second. The client reads GoatCounter's
 `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Reset` headers;
@@ -170,9 +171,9 @@ npm run fetch -- --force
 python3 -m http.server 4173 --directory site
 ```
 
-Omit `--force` to reuse the current published JSON for the same hour and to reuse
-unchanged fixed-window aggregates during a new-hour fetch. Use `--force` when
-intentionally validating a completely fresh API run.
+Omit `--force` to reuse the current published JSON within the same half-hour and
+to reuse unchanged fixed-window aggregates during the next fetch. Use `--force`
+when intentionally validating a completely fresh API run.
 
 Then open `http://localhost:4173/`. `site/data/stats.json` is ignored by Git so a
 local live-data run cannot accidentally commit a statistics snapshot.

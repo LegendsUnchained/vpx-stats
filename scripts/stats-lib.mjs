@@ -1,4 +1,5 @@
 const HOUR_MS = 60 * 60 * 1000;
+const HALF_HOUR_MS = HOUR_MS / 2;
 const DAY_MS = 24 * HOUR_MS;
 
 export const PERIOD_DEFINITIONS = Object.freeze([
@@ -16,17 +17,19 @@ export const MODEL_DEFINITIONS = Object.freeze([
 
 const MODEL_KEYS = new Set(MODEL_DEFINITIONS.map(({ key }) => key));
 
-export function floorToHour(value) {
+export function floorToHalfHour(value) {
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) {
     throw new TypeError(`Invalid date: ${value}`);
   }
-  return new Date(Math.floor(date.getTime() / HOUR_MS) * HOUR_MS);
+  return new Date(
+    Math.floor(date.getTime() / HALF_HOUR_MS) * HALF_HOUR_MS,
+  );
 }
 
 export function buildPeriodRanges(now, firstHitAt) {
-  const end = floorToHour(now);
-  const firstHit = floorToHour(firstHitAt);
+  const end = floorToHalfHour(now);
+  const firstHit = floorToHalfHour(firstHitAt);
 
   return Object.fromEntries(
     PERIOD_DEFINITIONS.map(({ key, label, durationMs }) => {
