@@ -180,9 +180,12 @@ local live-data run cannot accidentally commit a statistics snapshot.
 
 ## Privacy
 
-The launcher submits one anonymous event using the table's `vpx-*` ID after the
-cabinet owner opts in. Its referrer contains the cabinet model and launcher
-version, such as `HA9920 2.1.0-13`; the published leaderboard aggregates the model
-and does not expose individual events. It does not submit a device ID, serial
-number, account, license, play duration, IP address, or user agent. This repository
-publishes only aggregate per-table counts.
+After the cabinet owner opts in, each table launch submits at least one anonymous
+event using the table's `vpx-*` ID. When the launcher receives verified completed-
+game data, it submits that accurate count instead; otherwise the launch counts as
+one play so tables without a supported memory map are still represented. The
+event referrer contains the cabinet model and launcher version, such as
+`HA9920 2.1.0-13`; the published leaderboard aggregates the model and does not
+expose individual events. It does not submit a device ID, serial number, account,
+license, play duration, IP address, or user agent. This repository publishes only
+aggregate per-table counts.
