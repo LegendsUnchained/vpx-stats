@@ -13,7 +13,9 @@ const TABLE_MANAGER_REFRESH_MS = 20 * 1000;
 
 const elements = {
   totalPlays: document.querySelector("#total-plays"),
+  totalPlaysLabel: document.querySelector("#total-plays-label"),
   activeTables: document.querySelector("#active-tables"),
+  activeTablesLabel: document.querySelector("#active-tables-label"),
   lastRefreshed: document.querySelector("#last-refreshed"),
   periodLabel: document.querySelector("#period-label"),
   periodWindow: document.querySelector("#period-window"),
@@ -80,7 +82,11 @@ function formatUpdated(value) {
 
 function formatWindow(period) {
   if (state.period === "all") return `Since ${formatDate(period.start)}`;
-  return `${formatDate(period.start)} – ${formatDate(period.end)} UTC`;
+  const window = `${formatDate(period.start)} – ${formatDate(period.end)} UTC`;
+  const allTime = state.data?.periods?.all;
+  const includesAllAvailableData =
+    period.start === allTime?.start && period.end === allTime?.end;
+  return includesAllAvailableData ? `${window} · All available data` : window;
 }
 
 function formatDate(value) {
@@ -320,7 +326,9 @@ function render() {
   const summary = state.model === "all" ? period : period.models[state.model];
   const entries = tableEntries();
 
+  elements.totalPlaysLabel.textContent = `Plays · ${period.label}`;
   elements.totalPlays.textContent = formatNumber(summary.totalPlays);
+  elements.activeTablesLabel.textContent = `Tables played · ${period.label}`;
   elements.activeTables.textContent = `${formatNumber(summary.activeTables)} / ${formatNumber(entries.length)}`;
   elements.lastRefreshed.textContent = formatUpdated(state.data.generatedAt);
   elements.periodLabel.textContent =
