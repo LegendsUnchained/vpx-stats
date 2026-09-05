@@ -119,6 +119,7 @@ async function main() {
     ranges,
     requestJson,
     publishedDataset,
+    new Set(Object.keys(manifest)),
   );
   for (const { periodKeys, hits, metrics } of groups) {
     const labels = periodKeys.map(
@@ -129,7 +130,8 @@ async function main() {
       `${labels.join(", ")}: ${hits.length} played table path(s), ` +
         `${metrics.fetched} fetched and ${metrics.reused} reused ` +
         `referrer breakdown(s)` +
-        `${publishedReuses ? ` (${publishedReuses} from the previous dataset)` : ""}.`,
+        `${publishedReuses ? ` (${publishedReuses} from the previous dataset)` : ""}` +
+        `${metrics.skipped ? `; ${metrics.skipped} unmatched path(s) skipped` : ""}.`,
     );
   }
 

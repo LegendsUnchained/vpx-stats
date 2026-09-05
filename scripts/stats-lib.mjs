@@ -314,6 +314,7 @@ export async function fetchPeriodStats(
   ranges,
   requestJson,
   publishedDataset = null,
+  refPathAllowlist = null,
 ) {
   const hitsByPeriod = {};
   const refsByPeriod = {};
@@ -322,6 +323,9 @@ export async function fetchPeriodStats(
 
   for (const { range, periodKeys } of groupPeriodRanges(ranges)) {
     const hits = await fetchAllHits(range, requestJson);
+    const refHits = refPathAllowlist === null
+      ? hits
+      : hits.filter(({ path }) => refPathAllowlist.has(path));
     const publishedFallback = periodKeys
       .map((key) => datasetRefFallback(publishedDataset, key))
       .find(
@@ -336,11 +340,12 @@ export async function fetchPeriodStats(
     const metrics = {};
     const refsByPath = await fetchRefsByPath(
       range,
-      hits,
+      refHits,
       requestJson,
       fallbacks,
       metrics,
     );
+    metrics.skipped = hits.length - refHits.length;
 
     for (const key of periodKeys) {
       hitsByPeriod[key] = hits;

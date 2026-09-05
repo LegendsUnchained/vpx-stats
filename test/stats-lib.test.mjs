@@ -372,11 +372,61 @@ test("fetchPeriodStats reuses the previous fixed window end to end", async () =>
     fetched: 1,
     reused: 1,
     reusedBySource: { published: 1 },
+    skipped: 0,
   });
   assert.deepEqual(result.groups[1].metrics, {
     fetched: 0,
     reused: 2,
     reusedBySource: { "current-range": 2 },
+    skipped: 0,
+  });
+});
+
+test("fetchPeriodStats only fetches referrers for allowed table paths", async () => {
+  const range = {
+    label: "Test range",
+    start: "2026-08-26T00:00:00.000Z",
+    end: "2026-08-30T00:00:00.000Z",
+  };
+  const ranges = Object.fromEntries(
+    ["day", "week", "month", "year", "all"].map((key) => [key, range]),
+  );
+  const requested = [];
+
+  const result = await fetchPeriodStats(
+    ranges,
+    async (url) => {
+      requested.push(url.pathname);
+      if (url.pathname === "/api/v0/stats/hits") {
+        return {
+          hits: [
+            { path_id: 10, path: "vpx-current", count: 4 },
+            { path_id: 11, path: "vpx-retired", count: 3 },
+          ],
+          more: false,
+        };
+      }
+      assert.equal(url.pathname, "/api/v0/stats/hits/10");
+      return {
+        refs: [{ name: "HA9919 2.1.0-13", count: 4 }],
+        more: false,
+      };
+    },
+    null,
+    new Set(["vpx-current"]),
+  );
+
+  assert.deepEqual(requested, [
+    "/api/v0/stats/hits",
+    "/api/v0/stats/hits/10",
+  ]);
+  assert.equal(result.hitsByPeriod.all.length, 2);
+  assert.equal(result.refsByPeriod.all.has("vpx-retired"), false);
+  assert.deepEqual(result.groups[0].metrics, {
+    fetched: 1,
+    reused: 0,
+    reusedBySource: {},
+    skipped: 1,
   });
 });
 

@@ -21,8 +21,8 @@ Ash cron dispatches it at minutes 0 and 30 of every hour. The workflow:
 1. Downloads the latest ALP4K release manifest.
 2. Reads GoatCounter's ranked event paths for rolling day, week, month, year, and
    all-time windows.
-3. Reads each played path's referrer totals and groups the leading referrer
-   value into HDP (`HA9919`) and 4KP (`HA9920`) cabinet-model counts.
+3. Reads current-manifest tables' referrer totals and groups the leading
+   referrer value into HDP (`HA9919`) and 4KP (`HA9920`) cabinet-model counts.
 4. Resolves each `vpx-*` path to its manifest metadata and launcher artwork.
 5. Writes `site/data/stats.json` and deploys the complete `site/` directory to
    GitHub Pages.
@@ -38,6 +38,10 @@ aggregate model counts from the previously published JSON. A table is queried
 again when its total changes, when its rolling window start moves, or when no
 valid prior aggregate exists. Raw referrers are never added to the cache or
 public contract.
+
+Obsolete or otherwise unmatched paths remain included in `unmatchedPlays`, but
+their referrer breakdowns are not fetched. This prevents retired table IDs from
+permanently consuming GoatCounter's hourly API quota.
 
 API requests are kept below four per second. The client reads GoatCounter's
 `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Reset` headers;
@@ -108,7 +112,8 @@ Every table in the release manifest is present, including tables with zero plays
 `unmatchedPlays` counts events whose path is not in the latest manifest; these are
 not given a misleading display name or added to the table map.
 
-The existing `counts` and period totals always include every play. `modelCounts`
+The existing table `counts` and matched period totals include every play for
+current-manifest tables. `modelCounts`
 and each period's `models` summaries include plays whose referrer starts with the
 corresponding cabinet model. Plays recorded before model referrers were added, or
 with an unrecognized referrer, remain visible under **All** without being guessed
