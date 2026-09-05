@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   buildPeriodRanges,
+  buildHourlyPeriodRanges,
   canReuseDataset,
   compileDataset,
   datasetRefFallback,
@@ -42,6 +43,17 @@ test("period ranges never query before telemetry began", () => {
   for (const period of ["week", "month", "year", "all"]) {
     assert.equal(ranges[period].start, "2026-08-26T00:00:00.000Z");
   }
+});
+
+test("export period ranges use completed UTC hours", () => {
+  const ranges = buildHourlyPeriodRanges(
+    "2026-09-05T16:42:19Z",
+    "2026-08-26T00:00:00Z",
+  );
+
+  assert.equal(ranges.day.start, "2026-09-04T16:00:00.000Z");
+  assert.equal(ranges.day.end, "2026-09-05T16:00:00.000Z");
+  assert.equal(ranges.all.start, "2026-08-26T00:00:00.000Z");
 });
 
 test("groupPeriodRanges deduplicates equal windows widest first", () => {

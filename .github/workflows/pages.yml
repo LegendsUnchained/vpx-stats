@@ -1,4 +1,4 @@
-name: Refresh stats and deploy Pages
+name: Deploy generated stats to Pages
 
 on:
   push:
@@ -20,24 +20,33 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      GOATCOUNTER_API_TOKEN: ${{ secrets.GOATCOUNTER_API_TOKEN }}
-      GITHUB_TOKEN: ${{ github.token }}
 
     steps:
-      - name: Check out repository
+      - name: Check out site
         uses: actions/checkout@v6
+        with:
+          ref: main
 
       - name: Set up Node.js
+        if: github.event_name == 'push'
         uses: actions/setup-node@v6
         with:
           node-version: 22
 
       - name: Test stats compiler
+        if: github.event_name == 'push'
         run: npm test
 
-      - name: Fetch and compile stats
-        run: npm run fetch
+      - name: Check out generated data
+        uses: actions/checkout@v6
+        with:
+          ref: data
+          path: generated-data
+
+      - name: Add generated stats to site
+        run: |
+          cp generated-data/stats.json site/data/stats.json
+          jq -e '.schemaVersion == 2 and (.tables | length) > 0' site/data/stats.json >/dev/null
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6

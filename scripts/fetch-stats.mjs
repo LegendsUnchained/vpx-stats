@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { mkdir, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,11 +12,15 @@ import {
   fetchPeriodStats,
 } from "./stats-lib.mjs";
 import { createGoatCounterClient } from "./goatcounter-client.mjs";
+import {
+  MANIFEST_REPOSITORY,
+  loadManifest,
+  publicJson,
+  writeDataset,
+} from "./dataset-io.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DEFAULT_OUTPUT = resolve(ROOT, "site/data/stats.json");
-const MANIFEST_REPOSITORY = "LegendsUnchained/vpx-standalone-alp4k";
-const GITHUB_RELEASE_API = `https://api.github.com/repos/${MANIFEST_REPOSITORY}/releases/latest`;
 const PUBLISHED_DATA_URL =
   "https://vpxstats.legendsunchained.com/data/stats.json";
 const ALL_TIME_START = "2026-08-26T00:00:00Z";
@@ -31,50 +34,6 @@ function outputPathFromArgs(args) {
 
 function forceFromArgs(args) {
   return args.includes("--force");
-}
-
-function responseDetail(text) {
-  const compact = text.replace(/\s+/g, " ").trim();
-  return compact.length > 300 ? `${compact.slice(0, 300)}…` : compact;
-}
-
-async function publicJson(url, headers = {}) {
-  const response = await fetch(url, {
-    headers: {
-      Accept: "application/vnd.github+json, application/json",
-      "User-Agent": "LegendsUnchained-vpx-stats",
-      ...headers,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(
-      `GET ${url} failed (${response.status}): ${responseDetail(await response.text())}`,
-    );
-  }
-  return response.json();
-}
-
-async function loadManifest(githubToken) {
-  const headers = githubToken ? { Authorization: `Bearer ${githubToken}` } : {};
-  const release = await publicJson(GITHUB_RELEASE_API, headers);
-  const asset = release.assets?.find(({ name }) => name === "manifest.json");
-  if (!release.tag_name || !asset?.browser_download_url) {
-    throw new Error("Latest ALP4K release does not contain manifest.json");
-  }
-
-  const manifest = await publicJson(asset.browser_download_url);
-  return {
-    manifest,
-    manifestUrl: asset.browser_download_url,
-    releaseTag: release.tag_name,
-  };
-}
-
-async function writeDataset(dataset, output) {
-  await mkdir(dirname(output), { recursive: true });
-  const temporaryOutput = `${output}.tmp`;
-  await writeFile(temporaryOutput, `${JSON.stringify(dataset, null, 2)}\n`, "utf8");
-  await rename(temporaryOutput, output);
 }
 
 async function main() {

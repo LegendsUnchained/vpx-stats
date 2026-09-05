@@ -27,9 +27,42 @@ export function floorToHalfHour(value) {
   );
 }
 
+export function floorToHour(value) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    throw new TypeError(`Invalid date: ${value}`);
+  }
+  return new Date(Math.floor(date.getTime() / HOUR_MS) * HOUR_MS);
+}
+
 export function buildPeriodRanges(now, firstHitAt) {
   const end = floorToHalfHour(now);
   const firstHit = floorToHalfHour(firstHitAt);
+
+  return Object.fromEntries(
+    PERIOD_DEFINITIONS.map(({ key, label, durationMs }) => {
+      const naturalStart = durationMs === null
+        ? firstHit
+        : new Date(end.getTime() - durationMs);
+      const start = new Date(
+        Math.max(firstHit.getTime(), naturalStart.getTime()),
+      );
+
+      return [
+        key,
+        {
+          label,
+          start: start.toISOString(),
+          end: end.toISOString(),
+        },
+      ];
+    }),
+  );
+}
+
+export function buildHourlyPeriodRanges(now, firstHitAt) {
+  const end = floorToHour(now);
+  const firstHit = floorToHour(firstHitAt);
 
   return Object.fromEntries(
     PERIOD_DEFINITIONS.map(({ key, label, durationMs }) => {

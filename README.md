@@ -1,6 +1,6 @@
 # VPX Stats
 
-Public, half-hourly table-play statistics for the Legends Unchained community.
+Public, hourly table-play statistics for the Legends Unchained community.
 
 The site turns anonymous `go-vpx-launcher` play events from GoatCounter into a
 static leaderboard. Table IDs are resolved against the latest
@@ -15,45 +15,32 @@ Once GitHub Pages is enabled, the public endpoints will be:
 
 ## How it works
 
-`.github/workflows/pages.yml` runs on pushes to `main` and on demand. Production's
-Ash cron dispatches it at minutes 0 and 30 of every hour. The workflow:
+Production generation runs on Ash at minute 7 of every hour:
 
-1. Downloads the latest ALP4K release manifest.
-2. Reads GoatCounter's ranked event paths for rolling day, week, month, year, and
-   all-time windows.
-3. Reads current-manifest tables' referrer totals and groups the leading
-   referrer value into HDP (`HA9919`) and 4KP (`HA9920`) cabinet-model counts.
-4. Resolves each `vpx-*` path to its manifest metadata and launcher artwork.
-5. Writes `site/data/stats.json` and deploys the complete `site/` directory to
-   GitHub Pages.
+1. Requests one background GoatCounter JSON export and polls until it is ready.
+2. Downloads its hourly path/referrer aggregates and transactionally replaces an
+   overlapping range in Ash's persistent SQLite cache.
+3. Builds rolling day, week, month, year, and all-time counts locally, including
+   HDP (`HA9919`) and 4KP (`HA9920`) cabinet-model totals.
+4. Resolves table metadata and artwork from the latest ALP4K release manifest.
+5. Pushes `stats.json` to the `data` branch and dispatches the Pages workflow.
 
-No query starts before the first telemetry event on August 26, 2026. Equal
-windows are fetched once, and narrower windows reuse a wider window's referrer
-breakdown whenever the table's count is unchanged. Ranges end on 00- and
-30-minute boundaries, so every scheduled dispatch produces a genuinely new data
-window. Duplicate runs inside the same half-hour reuse the published dataset.
+The first export starts on August 26, 2026. Later exports start one UTC day before
+the latest cached hour, so their size stays bounded while the overlap captures
+late aggregate changes. SQLite replaces that entire overlap in one transaction;
+failed or repeated runs cannot double-count it. Periods use completed UTC-hour
+boundaries because GoatCounter's retained export data is hourly.
 
-At a new half-hour, fixed-start windows also reuse each unchanged table's
-aggregate model counts from the previously published JSON. A table is queried
-again when its total changes, when its rolling window start moves, or when no
-valid prior aggregate exists. Raw referrers are never added to the cache or
-public contract.
+The export client reads GoatCounter's `X-Rate-Limit-Limit`,
+`X-Rate-Limit-Remaining`, `X-Rate-Limit-Reset`, and `Retry-After` headers. It
+waits for short resets and exits cleanly on an hourly reset so the next cron run
+can retry. Transient network and server failures use bounded retries.
 
-Obsolete or otherwise unmatched paths remain included in `unmatchedPlays`, but
-their referrer breakdowns are not fetched. This prevents retired table IDs from
-permanently consuming GoatCounter's hourly API quota.
-
-API requests are kept below four per second. The client reads GoatCounter's
-`X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Reset` headers;
-it waits for short resets and stops cleanly on a long exhausted quota so a later
-scheduled dispatch can retry without sending requests before the reset. Network
-errors, interrupted response bodies, transient 404/408/425 responses, and server
-errors use bounded exponential retries with jitter. Retry and terminal messages
-include the request URL and underlying transport cause where available.
-
-The generated JSON is a deployment artifact, not a stream of scheduled commits. The
-API token is only available to the workflow process and is never included in the
-site or its data.
+GitHub Actions never calls GoatCounter. On an Ash dispatch, it checks out `main`
+and the generated `data` branch, validates `stats.json`, and deploys the static
+site. A push to `main` additionally runs the compiler tests before deploying.
+The GoatCounter API token exists only in Ash's root-only worker environment and
+is never included in the repository, Actions, site, or public data.
 
 ## Data contract
 
@@ -142,43 +129,38 @@ the local Wizard URL itself; the stats site cannot supply an arbitrary URL.
 
 ## Repository setup
 
-Before the first workflow run:
-
-1. Add the API token as an Actions repository secret named
-   `GOATCOUNTER_API_TOKEN`.
-2. In **Settings → Pages**, select **GitHub Actions** as the build and deployment
-   source.
-3. Run **Refresh stats and deploy Pages** manually to verify the deployment.
-
-The key only needs GoatCounter's statistics-read permission. It does not need
-site-read or write access.
+GitHub Pages uses **GitHub Actions** as its build and deployment source. The
+`data` branch contains the latest generated `stats.json`; `main` contains the
+site and compiler. No GoatCounter secret is required in GitHub Actions.
 
 ## Production schedule
 
-Ash dispatches `pages.yml` through GitHub's `workflow_dispatch` API at minutes 0
-and 30. The tracked host files are in `ops/ash/` and are installed as:
+Ash generates and publishes the data at minute 7 of every hour. The tracked host
+files are in `ops/ash/` and are installed as:
 
 - `/usr/local/sbin/vpx-stats-refresh`
 - `/etc/cron.d/vpx-stats-refresh`
 
-The GitHub API credential is stored separately in the root-only
-`/etc/vpx-stats-refresh/curl.conf`; it is never committed. Each successful or
-failed dispatch is written to the system log with the `vpx-stats-refresh` tag.
+Persistent state is stored under `/var/lib/vpx-stats`, with a `data`-branch
+checkout at `/var/lib/vpx-stats-data`. The root-only
+`/etc/vpx-stats-refresh/worker.env` contains the GoatCounter export key, while
+`curl.conf` contains the GitHub dispatch request. Each generation and dispatch
+is written to the system log with the `vpx-stats-refresh` tag.
 
 ## Local development
 
-Node.js 20 or newer is required. No packages need to be installed.
+Node.js 22 or newer and `unzip` are required. No npm packages need to be
+installed.
 
 ```sh
 export GOATCOUNTER_API_TOKEN="your-read-only-token"
 npm test
-npm run fetch -- --force
+npm run fetch:export -- --state-dir .cache/export
 python3 -m http.server 4173 --directory site
 ```
 
-Omit `--force` to reuse the current published JSON within the same half-hour and
-to reuse unchanged fixed-window aggregates during the next fetch. Use `--force`
-when intentionally validating a completely fresh API run.
+The export endpoint allows one new export per hour. Reusing the same state
+directory makes later runs request only the overlap needed to update the cache.
 
 Then open `http://localhost:4173/`. `site/data/stats.json` is ignored by Git so a
 local live-data run cannot accidentally commit a statistics snapshot.

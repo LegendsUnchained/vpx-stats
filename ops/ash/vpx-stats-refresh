@@ -3,24 +3,58 @@
 set -eu
 
 readonly CURL_CONFIG=/etc/vpx-stats-refresh/curl.conf
+readonly ENV_FILE=/etc/vpx-stats-refresh/worker.env
 readonly LOCK_FILE=/run/lock/vpx-stats-refresh.lock
 readonly LOG_TAG=vpx-stats-refresh
+readonly SOURCE_DIR=/opt/vpx-stats
+readonly DATA_DIR=/var/lib/vpx-stats-data
+readonly STATE_DIR=/var/lib/vpx-stats
+readonly IMAGE=vpx-stats-worker
 
-if [ ! -r "$CURL_CONFIG" ]; then
-  /usr/bin/logger -t "$LOG_TAG" "dispatch failed: missing $CURL_CONFIG"
+if [ "${1:-}" != "--locked" ]; then
+  if /usr/bin/flock --conflict-exit-code 75 --nonblock "$LOCK_FILE" \
+    "$0" --locked; then
+    exit 0
+  fi
+
+  status=$?
+  if [ "$status" -eq 75 ]; then
+    /usr/bin/logger -t "$LOG_TAG" "refresh skipped: another invocation is active"
+  else
+    /usr/bin/logger -t "$LOG_TAG" "refresh failed with exit status $status"
+  fi
+  exit "$status"
+fi
+
+for required in "$CURL_CONFIG" "$ENV_FILE" "$SOURCE_DIR/.git" "$DATA_DIR/.git"; do
+  if [ ! -r "$required" ]; then
+    /usr/bin/logger -t "$LOG_TAG" "refresh failed: missing $required"
+    exit 1
+  fi
+done
+
+/usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$SOURCE_DIR" fetch --quiet origin main
+/usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$SOURCE_DIR" merge --quiet --ff-only origin/main
+/usr/bin/docker build --quiet --tag "$IMAGE" "$SOURCE_DIR" >/dev/null
+
+if ! output=$(/usr/bin/docker run --rm \
+  --env-file "$ENV_FILE" \
+  --volume "$STATE_DIR:/state" \
+  "$IMAGE" 2>&1); then
+  printf '%s\n' "$output" | /usr/bin/logger -t "$LOG_TAG"
   exit 1
 fi
+printf '%s\n' "$output" | /usr/bin/logger -t "$LOG_TAG"
 
-if /usr/bin/flock --conflict-exit-code 75 --nonblock "$LOCK_FILE" \
-  /usr/bin/curl --config "$CURL_CONFIG"; then
-  /usr/bin/logger -t "$LOG_TAG" "dispatched LegendsUnchained/vpx-stats pages workflow"
-  exit 0
+/usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" fetch --quiet origin data
+/usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" merge --quiet --ff-only origin/data
+/usr/bin/install -o jrebeiro -g jrebeiro -m 0644 "$STATE_DIR/stats.json" "$DATA_DIR/stats.json"
+/usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" add stats.json
+if ! /usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" diff --cached --quiet; then
+  /usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" commit --quiet \
+    -m "data: refresh generated statistics"
+  /usr/sbin/runuser -u jrebeiro -- /usr/bin/git -C "$DATA_DIR" push --quiet origin data
 fi
 
-status=$?
-if [ "$status" -eq 75 ]; then
-  /usr/bin/logger -t "$LOG_TAG" "dispatch skipped: another invocation is active"
-else
-  /usr/bin/logger -t "$LOG_TAG" "dispatch failed with exit status $status"
-fi
-exit "$status"
+/usr/bin/curl --config "$CURL_CONFIG"
+/usr/bin/logger -t "$LOG_TAG" "generated stats, pushed data branch, and dispatched Pages"
