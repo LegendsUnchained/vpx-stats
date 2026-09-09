@@ -12,6 +12,7 @@ Once GitHub Pages is enabled, the public endpoints will be:
 
 - Site: `https://vpxstats.legendsunchained.com/`
 - Data: `https://vpxstats.legendsunchained.com/data/stats.json`
+- Totals: `https://vpxstats.legendsunchained.com/data/totals.json`
 
 ## How it works
 
@@ -105,6 +106,32 @@ and each period's `models` summaries include plays whose referrer starts with th
 corresponding cabinet model. Plays recorded before model referrers were added, or
 with an unrecognized referrer, remain visible under **All** without being guessed
 into a model.
+
+### `totals.json`
+
+The headline numbers on their own, for callers that want a period total and none
+of the per-table detail — `stats.json` is ~220 KB of tables and artwork URLs, and
+the Table Manager marketing site pulls two numbers out of it on every visit.
+
+```json
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-09T05:07:04.679Z",
+  "tableCount": 306,
+  "periods": {
+    "day":   { "label": "Last 24 hours", "start": "…", "end": "…", "totalPlays": 439,  "activeTables": 134 },
+    "week":  { "label": "Last 7 days",   "start": "…", "end": "…", "totalPlays": 3253, "activeTables": 271 },
+    "month": { "label": "Last 30 days",  "start": "…", "end": "…", "totalPlays": 4730, "activeTables": 293 },
+    "year":  { "label": "Last 365 days", "start": "…", "end": "…", "totalPlays": 4730, "activeTables": 293 },
+    "all":   { "label": "All time",      "start": "…", "end": "…", "totalPlays": 4730, "activeTables": 293 }
+  }
+}
+```
+
+It is derived from `stats.json` during the Pages deploy rather than generated on
+Ash: same source, same run, so the two cannot report different numbers, and the
+refresh worker keeps publishing one artifact. `totalPlays` is the matched-play
+count the site itself displays; unmatched plays stay in `stats.json`.
 
 The named periods are rolling UTC windows:
 

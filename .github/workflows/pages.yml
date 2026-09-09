@@ -48,6 +48,27 @@ jobs:
           cp generated-data/stats.json site/data/stats.json
           jq -e '.schemaVersion == 2 and (.tables | length) > 0' site/data/stats.json >/dev/null
 
+      # A totals-only endpoint for callers that want the headline numbers and
+      # nothing else — the Table Manager marketing site pulls two of them into
+      # its hero, and stats.json is ~220 KB of per-table detail and artwork URLs
+      # it would otherwise download on every visit. Derived from the file above
+      # rather than generated on Ash, so the two can never disagree and the
+      # worker needs no second artifact.
+      - name: Derive the totals endpoint
+        run: |
+          jq '{
+            schemaVersion,
+            generatedAt,
+            tableCount: (.tables | length),
+            periods: (.periods | map_values({ label, start, end, totalPlays, activeTables }))
+          }' site/data/stats.json > site/data/totals.json
+          jq -e '
+            .schemaVersion == 2
+            and .tableCount > 0
+            and ([.periods | keys[]] | sort == ["all", "day", "month", "week", "year"])
+            and ([.periods[].totalPlays] | all(type == "number"))
+          ' site/data/totals.json >/dev/null
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
