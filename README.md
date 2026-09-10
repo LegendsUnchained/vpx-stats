@@ -6,7 +6,10 @@ The site turns anonymous `go-vpx-launcher` play events from GoatCounter into a
 static leaderboard. Table IDs are resolved against the latest
 [`vpx-standalone-alp4k`](https://github.com/LegendsUnchained/vpx-standalone-alp4k)
 release manifest, so the published data includes the table's current display name,
-manufacturer, year, and release-tagged `launcher.png` URL.
+manufacturer, year, and box art. The art URL points at that repo's `manifest`
+branch — a WebP re-encode of each table's `launcher.png` (~88% smaller, no
+per-release staleness — see `launcherImageUrl` in `scripts/stats-lib.mjs`),
+not a release-tagged raw file.
 
 Once GitHub Pages is enabled, the public endpoints will be:
 
@@ -79,7 +82,7 @@ launcher and Table Manager:
       "manufacturer": "Stern",
       "year": 2013,
       "nsfw": false,
-      "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/v2.0.9/external/vpx-metallicapremium/launcher.png",
+      "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-metallicapremium.webp",
       "counts": {
         "day": 1,
         "week": 1,

@@ -187,7 +187,14 @@ export function datasetRefFallback(dataset, periodKey) {
   };
 }
 
-export function launcherImageUrl(repository, releaseTag, tableId) {
+// Points at vpx-standalone-alp4k's "manifest" branch — a CORS-mirrored,
+// always-current copy of each table's box art, re-encoded as WebP (q90, no
+// resize) by that repo's publish-catalog-data.yml workflow. ~88% smaller than
+// the release-tagged launcher.png this used to point at (~1.08 MB -> ~145 KB
+// measured), with no per-release staleness: the mirror is force-pushed after
+// every release and every table folder gets one regardless of release
+// history, so this isn't release-tag-pinned the way the manifest fetch is.
+export function launcherImageUrl(repository, tableId) {
   const [owner, repo] = repository.split("/");
   if (!owner || !repo) {
     throw new TypeError(`Invalid GitHub repository: ${repository}`);
@@ -196,10 +203,9 @@ export function launcherImageUrl(repository, releaseTag, tableId) {
     "https://raw.githubusercontent.com",
     encodeURIComponent(owner),
     encodeURIComponent(repo),
-    encodeURIComponent(releaseTag),
-    "external",
-    encodeURIComponent(tableId),
-    "launcher.png",
+    "manifest",
+    "boxart",
+    `${encodeURIComponent(tableId)}.webp`,
   ].join("/");
 }
 
@@ -523,7 +529,7 @@ export function compileDataset({
       manufacturer: table.manufacturer || null,
       year: Number.isFinite(table.year) ? table.year : null,
       nsfw: Boolean(table.nsfw),
-      launcherImage: launcherImageUrl(repository, releaseTag, tableId),
+      launcherImage: launcherImageUrl(repository, tableId),
       counts: Object.fromEntries(
         PERIOD_DEFINITIONS.map(({ key }) => [
           key,

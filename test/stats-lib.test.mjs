@@ -518,14 +518,10 @@ test("compileDataset keys output by stable table ID and resolves metadata", () =
   });
 });
 
-test("launcherImageUrl points at the release-tagged raw file", () => {
+test("launcherImageUrl points at the manifest-branch WebP mirror", () => {
   assert.equal(
-    launcherImageUrl(
-      "LegendsUnchained/vpx-standalone-alp4k",
-      "v2.0.9",
-      "vpx-madmax",
-    ),
-    "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/v2.0.9/external/vpx-madmax/launcher.png",
+    launcherImageUrl("LegendsUnchained/vpx-standalone-alp4k", "vpx-madmax"),
+    "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-madmax.webp",
   );
 });
 
