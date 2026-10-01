@@ -14,6 +14,7 @@ import {
   groupPeriodRanges,
   launcherImageUrl,
   modelFromReferrer,
+  tableIdResolver,
 } from "../scripts/stats-lib.mjs";
 
 test("buildPeriodRanges creates rolling half-hour UTC windows", () => {
@@ -516,6 +517,44 @@ test("compileDataset keys output by stable table ID and resolves metadata", () =
     activeTables: 1,
     unmatchedPlays: 3,
   });
+});
+
+test("tableIdResolver matches GoatCounter's lowercased paths", () => {
+  const resolve = tableIdResolver(["vpx-nightmarebeforechristmasPUP", "vpx-one"]);
+  assert.equal(resolve("vpx-nightmarebeforechristmaspup"), "vpx-nightmarebeforechristmasPUP");
+  assert.equal(resolve("vpx-nightmarebeforechristmasPUP"), "vpx-nightmarebeforechristmasPUP");
+  assert.equal(resolve("vpx-one"), "vpx-one");
+  assert.equal(resolve("vpx-retired"), null);
+
+  // An exact match wins over a case-folded one.
+  const both = tableIdResolver(["vpx-Two", "vpx-two"]);
+  assert.equal(both("vpx-Two"), "vpx-Two");
+  assert.equal(both("vpx-two"), "vpx-two");
+});
+
+test("compileDataset counts a lowercased path for its mixed-case table ID", () => {
+  const ranges = buildPeriodRanges(
+    "2026-08-28T16:42:19Z",
+    "2026-08-20T10:34:00Z",
+  );
+  const dataset = compileDataset({
+    generatedAt: "2026-08-28T16:42:19Z",
+    manifest: { "vpx-tablePUP": { name: "Table" } },
+    manifestUrl: "https://example.test/manifest.json",
+    releaseTag: "v2.0.14",
+    repository: "LegendsUnchained/vpx-standalone-alp4k",
+    ranges,
+    hitsByPeriod: { all: [{ path: "vpx-tablepup", count: 4 }] },
+    refsByPeriod: {
+      all: new Map([["vpx-tablepup", [{ name: "HA9920 2.3.4", count: 4 }]]]),
+    },
+  });
+
+  assert.equal(dataset.tables["vpx-tablePUP"].counts.all, 4);
+  assert.equal(dataset.tables["vpx-tablePUP"].modelCounts.HA9920.all, 4);
+  assert.equal(dataset.periods.all.totalPlays, 4);
+  assert.equal(dataset.periods.all.unmatchedPlays, 0);
+  assert.equal(dataset.periods.all.models.HA9920.unmatchedPlays, 0);
 });
 
 test("launcherImageUrl points at the manifest-branch WebP mirror", () => {

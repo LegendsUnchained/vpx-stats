@@ -359,12 +359,17 @@ export async function fetchPeriodStats(
   const refsByPeriod = {};
   const completedRanges = [];
   const groups = [];
+  // Matched like compileDataset matches, so a lowercased path still gets its
+  // per-model referrer breakdown.
+  const resolveAllowed = refPathAllowlist === null
+    ? null
+    : tableIdResolver(refPathAllowlist);
 
   for (const { range, periodKeys } of groupPeriodRanges(ranges)) {
     const hits = await fetchAllHits(range, requestJson);
-    const refHits = refPathAllowlist === null
+    const refHits = resolveAllowed === null
       ? hits
-      : hits.filter(({ path }) => refPathAllowlist.has(path));
+      : hits.filter(({ path }) => resolveAllowed(path) !== null);
     const publishedFallback = periodKeys
       .map((key) => datasetRefFallback(publishedDataset, key))
       .find(
@@ -408,18 +413,39 @@ export function modelFromReferrer(value) {
   return MODEL_KEYS.has(model) ? model : null;
 }
 
-function countHitsByPath(hits) {
+// tableIdResolver maps a GoatCounter path to the manifest table ID it counts
+// for, or null when it matches none.
+//
+// GoatCounter stores paths lowercased, so a table ID with capitals (e.g.
+// vpx-nightmarebeforechristmasPUP) comes back as ...pup and never matches the
+// manifest exactly. An exact match still wins, so two IDs differing only in case
+// cannot steal each other's plays.
+export function tableIdResolver(tableIds) {
+  const exact = new Set(tableIds);
+  const folded = new Map();
+  for (const id of [...exact].sort()) {
+    const key = id.toLowerCase();
+    if (!folded.has(key)) folded.set(key, id);
+  }
+  return (path) =>
+    exact.has(path) ? path : (folded.get(path.toLowerCase()) ?? null);
+}
+
+// Counts are keyed by resolved table ID, falling back to the raw path for one
+// that matches no table so it still lands in unmatchedPlays.
+function countHitsByPath(hits, resolveTableId = () => null) {
   const counts = new Map();
   for (const hit of hits) {
     if (typeof hit.path !== "string" || !Number.isFinite(hit.count)) {
       continue;
     }
-    counts.set(hit.path, (counts.get(hit.path) ?? 0) + Math.max(0, hit.count));
+    const key = resolveTableId(hit.path) ?? hit.path;
+    counts.set(key, (counts.get(key) ?? 0) + Math.max(0, hit.count));
   }
   return counts;
 }
 
-function countModelsByPath(refsByPath) {
+function countModelsByPath(refsByPath, resolveTableId = () => null) {
   const counts = Object.fromEntries(
     MODEL_DEFINITIONS.map(({ key }) => [key, new Map()]),
   );
@@ -433,7 +459,8 @@ function countModelsByPath(refsByPath) {
       const model = modelFromReferrer(ref?.name);
       if (!model || !Number.isFinite(ref.count)) continue;
       const count = Math.max(0, ref.count);
-      counts[model].set(path, (counts[model].get(path) ?? 0) + count);
+      const key = resolveTableId(path) ?? path;
+      counts[model].set(key, (counts[model].get(key) ?? 0) + count);
     }
   }
 
@@ -454,16 +481,17 @@ export function compileDataset({
     throw new TypeError("Manifest must be an object keyed by table ID");
   }
 
+  const resolveTableId = tableIdResolver(Object.keys(manifest));
   const periodCounts = Object.fromEntries(
     PERIOD_DEFINITIONS.map(({ key }) => [
       key,
-      countHitsByPath(hitsByPeriod[key] ?? []),
+      countHitsByPath(hitsByPeriod[key] ?? [], resolveTableId),
     ]),
   );
   const periodModelCounts = Object.fromEntries(
     PERIOD_DEFINITIONS.map(({ key }) => [
       key,
-      countModelsByPath(refsByPeriod[key]),
+      countModelsByPath(refsByPeriod[key], resolveTableId),
     ]),
   );
   const manifestIds = new Set(Object.keys(manifest));
