@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-08T11:07:07.403Z",
+  "generatedAt": "2026-11-08T14:07:07.352Z",
   "modelDefinitions": [
     {
       "key": "HA9919",
@@ -20,51 +20,51 @@
   "periods": {
     "day": {
       "label": "Last 24 hours",
-      "start": "2026-11-07T11:00:00.000Z",
-      "end": "2026-11-08T11:00:00.000Z",
-      "totalPlays": 1915,
-      "activeTables": 330,
-      "unmatchedPlays": 271,
+      "start": "2026-11-07T14:00:00.000Z",
+      "end": "2026-11-08T14:00:00.000Z",
+      "totalPlays": 1890,
+      "activeTables": 329,
+      "unmatchedPlays": 272,
       "models": {
         "HA9919": {
-          "totalPlays": 181,
-          "activeTables": 94,
-          "unmatchedPlays": 2
+          "totalPlays": 173,
+          "activeTables": 90,
+          "unmatchedPlays": 1
         },
         "HA9920": {
-          "totalPlays": 1734,
-          "activeTables": 320,
-          "unmatchedPlays": 269
+          "totalPlays": 1717,
+          "activeTables": 319,
+          "unmatchedPlays": 271
         }
       }
     },
     "week": {
       "label": "Last 7 days",
-      "start": "2026-11-01T11:00:00.000Z",
-      "end": "2026-11-08T11:00:00.000Z",
-      "totalPlays": 10096,
+      "start": "2026-11-01T14:00:00.000Z",
+      "end": "2026-11-08T14:00:00.000Z",
+      "totalPlays": 10085,
       "activeTables": 376,
-      "unmatchedPlays": 1903,
+      "unmatchedPlays": 1915,
       "models": {
         "HA9919": {
-          "totalPlays": 935,
+          "totalPlays": 932,
           "activeTables": 266,
-          "unmatchedPlays": 188
+          "unmatchedPlays": 187
         },
         "HA9920": {
-          "totalPlays": 9161,
+          "totalPlays": 9153,
           "activeTables": 375,
-          "unmatchedPlays": 1715
+          "unmatchedPlays": 1728
         }
       }
     },
     "month": {
       "label": "Last 30 days",
-      "start": "2026-10-09T11:00:00.000Z",
-      "end": "2026-11-08T11:00:00.000Z",
-      "totalPlays": 52141,
+      "start": "2026-10-09T14:00:00.000Z",
+      "end": "2026-11-08T14:00:00.000Z",
+      "totalPlays": 52115,
       "activeTables": 377,
-      "unmatchedPlays": 10889,
+      "unmatchedPlays": 10897,
       "models": {
         "HA9919": {
           "totalPlays": 3081,
@@ -72,19 +72,19 @@
           "unmatchedPlays": 475
         },
         "HA9920": {
-          "totalPlays": 49060,
+          "totalPlays": 49034,
           "activeTables": 377,
-          "unmatchedPlays": 10414
+          "unmatchedPlays": 10422
         }
       }
     },
     "year": {
       "label": "Last 365 days",
       "start": "2026-08-26T00:00:00.000Z",
-      "end": "2026-11-08T11:00:00.000Z",
-      "totalPlays": 123014,
+      "end": "2026-11-08T14:00:00.000Z",
+      "totalPlays": 123053,
       "activeTables": 377,
-      "unmatchedPlays": 20699,
+      "unmatchedPlays": 20722,
       "models": {
         "HA9919": {
           "totalPlays": 7790,
@@ -92,19 +92,19 @@
           "unmatchedPlays": 692
         },
         "HA9920": {
-          "totalPlays": 115224,
+          "totalPlays": 115263,
           "activeTables": 377,
-          "unmatchedPlays": 20007
+          "unmatchedPlays": 20030
         }
       }
     },
     "all": {
       "label": "All time",
       "start": "2026-08-26T00:00:00.000Z",
-      "end": "2026-11-08T11:00:00.000Z",
-      "totalPlays": 123014,
+      "end": "2026-11-08T14:00:00.000Z",
+      "totalPlays": 123053,
       "activeTables": 377,
-      "unmatchedPlays": 20699,
+      "unmatchedPlays": 20722,
       "models": {
         "HA9919": {
           "totalPlays": 7790,
@@ -112,9 +112,9 @@
           "unmatchedPlays": 692
         },
         "HA9920": {
-          "totalPlays": 115224,
+          "totalPlays": 115263,
           "activeTables": 377,
-          "unmatchedPlays": 20007
+          "unmatchedPlays": 20030
         }
       }
     }
@@ -217,7 +217,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-24.webp",
       "counts": {
-        "day": 7,
+        "day": 6,
         "week": 24,
         "month": 103,
         "year": 338,
@@ -225,7 +225,7 @@
       },
       "modelCounts": {
         "HA9919": {
-          "day": 2,
+          "day": 1,
           "week": 6,
           "month": 7,
           "year": 17,
@@ -397,7 +397,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-acdclucipremium.webp",
       "counts": {
-        "day": 35,
+        "day": 31,
         "week": 169,
         "month": 958,
         "year": 2343,
@@ -412,7 +412,7 @@
           "all": 86
         },
         "HA9920": {
-          "day": 34,
+          "day": 30,
           "week": 159,
           "month": 928,
           "year": 2257,
@@ -489,7 +489,7 @@
       "counts": {
         "day": 1,
         "week": 21,
-        "month": 149,
+        "month": 147,
         "year": 575,
         "all": 575
       },
@@ -504,7 +504,7 @@
         "HA9920": {
           "day": 1,
           "week": 17,
-          "month": 137,
+          "month": 135,
           "year": 552,
           "all": 552
         }
@@ -548,7 +548,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-alaska.webp",
       "counts": {
         "day": 0,
-        "week": 6,
+        "week": 5,
         "month": 28,
         "year": 77,
         "all": 77
@@ -563,7 +563,7 @@
         },
         "HA9920": {
           "day": 0,
-          "week": 5,
+          "week": 4,
           "month": 27,
           "year": 74,
           "all": 74
@@ -638,8 +638,8 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-alienstar.webp",
       "counts": {
         "day": 1,
-        "week": 6,
-        "month": 78,
+        "week": 5,
+        "month": 76,
         "year": 294,
         "all": 294
       },
@@ -653,8 +653,8 @@
         },
         "HA9920": {
           "day": 1,
-          "week": 6,
-          "month": 78,
+          "week": 5,
+          "month": 76,
           "year": 290,
           "all": 290
         }
@@ -819,7 +819,7 @@
       "counts": {
         "day": 6,
         "week": 34,
-        "month": 201,
+        "month": 199,
         "year": 455,
         "all": 455
       },
@@ -834,7 +834,7 @@
         "HA9920": {
           "day": 4,
           "week": 31,
-          "month": 193,
+          "month": 191,
           "year": 431,
           "all": 431
         }
@@ -849,7 +849,7 @@
       "counts": {
         "day": 0,
         "week": 5,
-        "month": 47,
+        "month": 44,
         "year": 114,
         "all": 114
       },
@@ -864,7 +864,7 @@
         "HA9920": {
           "day": 0,
           "week": 4,
-          "month": 46,
+          "month": 43,
           "year": 110,
           "all": 110
         }
@@ -1147,7 +1147,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-badcats.webp",
       "counts": {
-        "day": 5,
+        "day": 4,
         "week": 23,
         "month": 86,
         "year": 248,
@@ -1162,7 +1162,7 @@
           "all": 11
         },
         "HA9920": {
-          "day": 5,
+          "day": 4,
           "week": 21,
           "month": 82,
           "year": 237,
@@ -1329,7 +1329,7 @@
       "counts": {
         "day": 9,
         "week": 27,
-        "month": 132,
+        "month": 131,
         "year": 443,
         "all": 443
       },
@@ -1344,7 +1344,7 @@
         "HA9920": {
           "day": 5,
           "week": 19,
-          "month": 120,
+          "month": 119,
           "year": 424,
           "all": 424
         }
@@ -1357,11 +1357,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-batman66premium.webp",
       "counts": {
-        "day": 12,
-        "week": 68,
-        "month": 439,
-        "year": 1479,
-        "all": 1479
+        "day": 13,
+        "week": 69,
+        "month": 438,
+        "year": 1480,
+        "all": 1480
       },
       "modelCounts": {
         "HA9919": {
@@ -1372,11 +1372,11 @@
           "all": 64
         },
         "HA9920": {
-          "day": 11,
-          "week": 62,
-          "month": 417,
-          "year": 1415,
-          "all": 1415
+          "day": 12,
+          "week": 63,
+          "month": 416,
+          "year": 1416,
+          "all": 1416
         }
       }
     },
@@ -1388,8 +1388,8 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-batmanforever.webp",
       "counts": {
         "day": 4,
-        "week": 23,
-        "month": 115,
+        "week": 22,
+        "month": 112,
         "year": 391,
         "all": 391
       },
@@ -1403,8 +1403,8 @@
         },
         "HA9920": {
           "day": 3,
-          "week": 22,
-          "month": 113,
+          "week": 21,
+          "month": 110,
           "year": 379,
           "all": 379
         }
@@ -1448,7 +1448,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-bbhpinballed.webp",
       "counts": {
         "day": 3,
-        "week": 30,
+        "week": 29,
         "month": 207,
         "year": 547,
         "all": 547
@@ -1463,7 +1463,7 @@
         },
         "HA9920": {
           "day": 3,
-          "week": 26,
+          "week": 25,
           "month": 198,
           "year": 525,
           "all": 525
@@ -1508,7 +1508,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-beatles.webp",
       "counts": {
         "day": 12,
-        "week": 63,
+        "week": 61,
         "month": 418,
         "year": 928,
         "all": 928
@@ -1523,7 +1523,7 @@
         },
         "HA9920": {
           "day": 12,
-          "week": 63,
+          "week": 61,
           "month": 398,
           "year": 892,
           "all": 892
@@ -1597,7 +1597,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-bigbuckhunter.webp",
       "counts": {
-        "day": 5,
+        "day": 3,
         "week": 23,
         "month": 128,
         "year": 527,
@@ -1612,7 +1612,7 @@
           "all": 56
         },
         "HA9920": {
-          "day": 5,
+          "day": 3,
           "week": 23,
           "month": 119,
           "year": 471,
@@ -1657,11 +1657,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-biglebowskipup.webp",
       "counts": {
-        "day": 40,
-        "week": 188,
-        "month": 211,
-        "year": 227,
-        "all": 227
+        "day": 39,
+        "week": 189,
+        "month": 212,
+        "year": 228,
+        "all": 228
       },
       "modelCounts": {
         "HA9919": {
@@ -1672,11 +1672,11 @@
           "all": 10
         },
         "HA9920": {
-          "day": 39,
-          "week": 179,
-          "month": 201,
-          "year": 217,
-          "all": 217
+          "day": 38,
+          "week": 180,
+          "month": 202,
+          "year": 218,
+          "all": 218
         }
       }
     },
@@ -1957,7 +1957,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-breakshot.webp",
       "counts": {
-        "day": 4,
+        "day": 3,
         "week": 15,
         "month": 75,
         "year": 174,
@@ -1972,7 +1972,7 @@
           "all": 5
         },
         "HA9920": {
-          "day": 4,
+          "day": 3,
           "week": 15,
           "month": 72,
           "year": 169,
@@ -2078,7 +2078,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-bugs.webp",
       "counts": {
         "day": 3,
-        "week": 17,
+        "week": 16,
         "month": 86,
         "year": 252,
         "all": 252
@@ -2093,7 +2093,7 @@
         },
         "HA9920": {
           "day": 3,
-          "week": 15,
+          "week": 14,
           "month": 81,
           "year": 239,
           "all": 239
@@ -2107,7 +2107,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-burner.webp",
       "counts": {
-        "day": 5,
+        "day": 4,
         "week": 18,
         "month": 42,
         "year": 135,
@@ -2122,7 +2122,7 @@
           "all": 8
         },
         "HA9920": {
-          "day": 5,
+          "day": 4,
           "week": 16,
           "month": 39,
           "year": 127,
@@ -2138,10 +2138,10 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-cactuscanyon.webp",
       "counts": {
         "day": 30,
-        "week": 115,
-        "month": 587,
-        "year": 1348,
-        "all": 1348
+        "week": 117,
+        "month": 589,
+        "year": 1350,
+        "all": 1350
       },
       "modelCounts": {
         "HA9919": {
@@ -2153,10 +2153,10 @@
         },
         "HA9920": {
           "day": 29,
-          "week": 110,
-          "month": 569,
-          "year": 1296,
-          "all": 1296
+          "week": 112,
+          "month": 571,
+          "year": 1298,
+          "all": 1298
         }
       }
     },
@@ -2197,7 +2197,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-carhop.webp",
       "counts": {
-        "day": 1,
+        "day": 0,
         "week": 17,
         "month": 62,
         "year": 186,
@@ -2212,7 +2212,7 @@
           "all": 9
         },
         "HA9920": {
-          "day": 1,
+          "day": 0,
           "week": 17,
           "month": 60,
           "year": 177,
@@ -2589,7 +2589,7 @@
       "counts": {
         "day": 5,
         "week": 10,
-        "month": 29,
+        "month": 28,
         "year": 74,
         "all": 74
       },
@@ -2604,7 +2604,7 @@
         "HA9920": {
           "day": 5,
           "week": 9,
-          "month": 28,
+          "month": 27,
           "year": 72,
           "all": 72
         }
@@ -2617,7 +2617,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-chrono.webp",
       "counts": {
-        "day": 3,
+        "day": 2,
         "week": 11,
         "month": 39,
         "year": 68,
@@ -2632,7 +2632,7 @@
           "all": 3
         },
         "HA9920": {
-          "day": 3,
+          "day": 2,
           "week": 11,
           "month": 38,
           "year": 65,
@@ -2649,7 +2649,7 @@
       "counts": {
         "day": 5,
         "week": 28,
-        "month": 338,
+        "month": 337,
         "year": 1289,
         "all": 1289
       },
@@ -2664,7 +2664,7 @@
         "HA9920": {
           "day": 5,
           "week": 28,
-          "month": 329,
+          "month": 328,
           "year": 1252,
           "all": 1252
         }
@@ -2709,7 +2709,7 @@
       "counts": {
         "day": 1,
         "week": 12,
-        "month": 54,
+        "month": 53,
         "year": 103,
         "all": 103
       },
@@ -2724,7 +2724,7 @@
         "HA9920": {
           "day": 1,
           "week": 10,
-          "month": 52,
+          "month": 51,
           "year": 98,
           "all": 98
         }
@@ -2889,7 +2889,7 @@
       "counts": {
         "day": 0,
         "week": 4,
-        "month": 64,
+        "month": 63,
         "year": 168,
         "all": 168
       },
@@ -2904,7 +2904,7 @@
         "HA9920": {
           "day": 0,
           "week": 4,
-          "month": 59,
+          "month": 58,
           "year": 158,
           "all": 158
         }
@@ -2919,7 +2919,7 @@
       "counts": {
         "day": 3,
         "week": 8,
-        "month": 72,
+        "month": 71,
         "year": 151,
         "all": 151
       },
@@ -2934,7 +2934,7 @@
         "HA9920": {
           "day": 3,
           "week": 8,
-          "month": 67,
+          "month": 66,
           "year": 140,
           "all": 140
         }
@@ -3007,7 +3007,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-darkestdungeon.webp",
       "counts": {
-        "day": 19,
+        "day": 18,
         "week": 46,
         "month": 230,
         "year": 621,
@@ -3015,7 +3015,7 @@
       },
       "modelCounts": {
         "HA9919": {
-          "day": 5,
+          "day": 4,
           "week": 8,
           "month": 25,
           "year": 55,
@@ -3128,7 +3128,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-dcrystalpup.webp",
       "counts": {
         "day": 1,
-        "week": 10,
+        "week": 9,
         "month": 79,
         "year": 207,
         "all": 207
@@ -3143,7 +3143,7 @@
         },
         "HA9920": {
           "day": 1,
-          "week": 10,
+          "week": 9,
           "month": 75,
           "year": 184,
           "all": 184
@@ -3157,7 +3157,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-deadpool.webp",
       "counts": {
-        "day": 17,
+        "day": 14,
         "week": 51,
         "month": 259,
         "year": 764,
@@ -3172,7 +3172,7 @@
           "all": 68
         },
         "HA9920": {
-          "day": 17,
+          "day": 14,
           "week": 46,
           "month": 237,
           "year": 696,
@@ -3309,7 +3309,7 @@
       "counts": {
         "day": 2,
         "week": 30,
-        "month": 220,
+        "month": 217,
         "year": 1599,
         "all": 1599
       },
@@ -3324,7 +3324,7 @@
         "HA9920": {
           "day": 2,
           "week": 24,
-          "month": 201,
+          "month": 198,
           "year": 1527,
           "all": 1527
         }
@@ -3338,7 +3338,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-dirtyharry.webp",
       "counts": {
         "day": 2,
-        "week": 13,
+        "week": 11,
         "month": 103,
         "year": 335,
         "all": 335
@@ -3353,7 +3353,7 @@
         },
         "HA9920": {
           "day": 0,
-          "week": 11,
+          "week": 9,
           "month": 97,
           "year": 325,
           "all": 325
@@ -3609,7 +3609,7 @@
       "counts": {
         "day": 22,
         "week": 56,
-        "month": 339,
+        "month": 338,
         "year": 719,
         "all": 719
       },
@@ -3624,7 +3624,7 @@
         "HA9920": {
           "day": 22,
           "week": 54,
-          "month": 322,
+          "month": 321,
           "year": 683,
           "all": 683
         }
@@ -3757,11 +3757,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-elvis.webp",
       "counts": {
-        "day": 53,
-        "week": 203,
-        "month": 358,
-        "year": 410,
-        "all": 410
+        "day": 54,
+        "week": 204,
+        "month": 359,
+        "year": 411,
+        "all": 411
       },
       "modelCounts": {
         "HA9919": {
@@ -3772,11 +3772,11 @@
           "all": 20
         },
         "HA9920": {
-          "day": 52,
-          "week": 187,
-          "month": 338,
-          "year": 390,
-          "all": 390
+          "day": 53,
+          "week": 188,
+          "month": 339,
+          "year": 391,
+          "all": 391
         }
       }
     },
@@ -3789,7 +3789,7 @@
       "counts": {
         "day": 3,
         "week": 9,
-        "month": 128,
+        "month": 127,
         "year": 301,
         "all": 301
       },
@@ -3804,7 +3804,7 @@
         "HA9920": {
           "day": 3,
           "week": 9,
-          "month": 115,
+          "month": 114,
           "year": 274,
           "all": 274
         }
@@ -3817,11 +3817,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-familyguy.webp",
       "counts": {
-        "day": 7,
-        "week": 19,
-        "month": 158,
-        "year": 497,
-        "all": 497
+        "day": 6,
+        "week": 20,
+        "month": 159,
+        "year": 498,
+        "all": 498
       },
       "modelCounts": {
         "HA9919": {
@@ -3832,11 +3832,11 @@
           "all": 29
         },
         "HA9920": {
-          "day": 7,
-          "week": 18,
-          "month": 150,
-          "year": 468,
-          "all": 468
+          "day": 6,
+          "week": 19,
+          "month": 151,
+          "year": 469,
+          "all": 469
         }
       }
     },
@@ -3847,11 +3847,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-fathom.webp",
       "counts": {
-        "day": 13,
-        "week": 23,
+        "day": 15,
+        "week": 25,
         "month": 216,
-        "year": 450,
-        "all": 450
+        "year": 452,
+        "all": 452
       },
       "modelCounts": {
         "HA9919": {
@@ -3862,11 +3862,11 @@
           "all": 25
         },
         "HA9920": {
-          "day": 8,
-          "week": 18,
+          "day": 10,
+          "week": 20,
           "month": 199,
-          "year": 425,
-          "all": 425
+          "year": 427,
+          "all": 427
         }
       }
     },
@@ -3908,7 +3908,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-fifthelement.webp",
       "counts": {
         "day": 0,
-        "week": 13,
+        "week": 12,
         "month": 66,
         "year": 139,
         "all": 139
@@ -3923,7 +3923,7 @@
         },
         "HA9920": {
           "day": 0,
-          "week": 10,
+          "week": 9,
           "month": 59,
           "year": 126,
           "all": 126
@@ -4177,7 +4177,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-flintstones.webp",
       "counts": {
-        "day": 16,
+        "day": 14,
         "week": 40,
         "month": 177,
         "year": 434,
@@ -4192,7 +4192,7 @@
           "all": 28
         },
         "HA9920": {
-          "day": 10,
+          "day": 8,
           "week": 33,
           "month": 163,
           "year": 406,
@@ -4358,7 +4358,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-futurama.webp",
       "counts": {
         "day": 4,
-        "week": 16,
+        "week": 15,
         "month": 141,
         "year": 358,
         "all": 358
@@ -4366,7 +4366,7 @@
       "modelCounts": {
         "HA9919": {
           "day": 1,
-          "week": 3,
+          "week": 2,
           "month": 10,
           "year": 34,
           "all": 34
@@ -4417,7 +4417,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-gameofdog.webp",
       "counts": {
-        "day": 12,
+        "day": 11,
         "week": 29,
         "month": 112,
         "year": 290,
@@ -4432,7 +4432,7 @@
           "all": 15
         },
         "HA9920": {
-          "day": 12,
+          "day": 11,
           "week": 29,
           "month": 107,
           "year": 275,
@@ -4537,11 +4537,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-getawaypup.webp",
       "counts": {
-        "day": 15,
-        "week": 49,
-        "month": 420,
-        "year": 443,
-        "all": 443
+        "day": 16,
+        "week": 50,
+        "month": 421,
+        "year": 444,
+        "all": 444
       },
       "modelCounts": {
         "HA9919": {
@@ -4552,11 +4552,11 @@
           "all": 24
         },
         "HA9920": {
-          "day": 15,
-          "week": 47,
-          "month": 396,
-          "year": 419,
-          "all": 419
+          "day": 16,
+          "week": 48,
+          "month": 397,
+          "year": 420,
+          "all": 420
         }
       }
     },
@@ -4717,11 +4717,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-godzilla70th.webp",
       "counts": {
-        "day": 10,
-        "week": 29,
-        "month": 115,
-        "year": 356,
-        "all": 356
+        "day": 11,
+        "week": 30,
+        "month": 116,
+        "year": 357,
+        "all": 357
       },
       "modelCounts": {
         "HA9919": {
@@ -4732,11 +4732,11 @@
           "all": 12
         },
         "HA9920": {
-          "day": 8,
-          "week": 26,
-          "month": 110,
-          "year": 344,
-          "all": 344
+          "day": 9,
+          "week": 27,
+          "month": 111,
+          "year": 345,
+          "all": 345
         }
       }
     },
@@ -4927,7 +4927,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-got.webp",
       "counts": {
-        "day": 16,
+        "day": 15,
         "week": 48,
         "month": 248,
         "year": 592,
@@ -4942,7 +4942,7 @@
           "all": 25
         },
         "HA9920": {
-          "day": 16,
+          "day": 15,
           "week": 44,
           "month": 241,
           "year": 567,
@@ -4957,11 +4957,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-gotg.webp",
       "counts": {
-        "day": 13,
+        "day": 14,
         "week": 35,
-        "month": 212,
-        "year": 592,
-        "all": 592
+        "month": 213,
+        "year": 593,
+        "all": 593
       },
       "modelCounts": {
         "HA9919": {
@@ -4972,11 +4972,11 @@
           "all": 63
         },
         "HA9920": {
-          "day": 11,
+          "day": 12,
           "week": 33,
-          "month": 177,
-          "year": 529,
-          "all": 529
+          "month": 178,
+          "year": 530,
+          "all": 530
         }
       }
     },
@@ -4989,7 +4989,7 @@
       "counts": {
         "day": 2,
         "week": 15,
-        "month": 101,
+        "month": 97,
         "year": 187,
         "all": 187
       },
@@ -5004,7 +5004,7 @@
         "HA9920": {
           "day": 2,
           "week": 15,
-          "month": 100,
+          "month": 96,
           "year": 185,
           "all": 185
         }
@@ -5079,7 +5079,7 @@
       "counts": {
         "day": 6,
         "week": 26,
-        "month": 203,
+        "month": 201,
         "year": 445,
         "all": 445
       },
@@ -5094,7 +5094,7 @@
         "HA9920": {
           "day": 6,
           "week": 23,
-          "month": 193,
+          "month": 191,
           "year": 424,
           "all": 424
         }
@@ -5168,7 +5168,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-hauntedhouse.webp",
       "counts": {
         "day": 3,
-        "week": 22,
+        "week": 20,
         "month": 87,
         "year": 244,
         "all": 244
@@ -5176,7 +5176,7 @@
       "modelCounts": {
         "HA9919": {
           "day": 0,
-          "week": 9,
+          "week": 7,
           "month": 19,
           "year": 54,
           "all": 54
@@ -5258,7 +5258,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-highspeed.webp",
       "counts": {
         "day": 22,
-        "week": 38,
+        "week": 37,
         "month": 110,
         "year": 204,
         "all": 204
@@ -5273,7 +5273,7 @@
         },
         "HA9920": {
           "day": 22,
-          "week": 37,
+          "week": 36,
           "month": 103,
           "year": 196,
           "all": 196
@@ -5287,7 +5287,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-hmm.webp",
       "counts": {
-        "day": 9,
+        "day": 8,
         "week": 21,
         "month": 57,
         "year": 116,
@@ -5302,7 +5302,7 @@
           "all": 9
         },
         "HA9920": {
-          "day": 8,
+          "day": 7,
           "week": 18,
           "month": 52,
           "year": 107,
@@ -5377,11 +5377,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-hpgof.webp",
       "counts": {
-        "day": 4,
-        "week": 36,
-        "month": 254,
-        "year": 549,
-        "all": 549
+        "day": 5,
+        "week": 37,
+        "month": 255,
+        "year": 550,
+        "all": 550
       },
       "modelCounts": {
         "HA9919": {
@@ -5392,11 +5392,11 @@
           "all": 50
         },
         "HA9920": {
-          "day": 4,
-          "week": 31,
-          "month": 234,
-          "year": 499,
-          "all": 499
+          "day": 5,
+          "week": 32,
+          "month": 235,
+          "year": 500,
+          "all": 500
         }
       }
     },
@@ -5527,15 +5527,15 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-indianajonestpa.webp",
       "counts": {
-        "day": 15,
-        "week": 59,
+        "day": 14,
+        "week": 57,
         "month": 307,
         "year": 821,
         "all": 821
       },
       "modelCounts": {
         "HA9919": {
-          "day": 3,
+          "day": 2,
           "week": 7,
           "month": 15,
           "year": 31,
@@ -5543,7 +5543,7 @@
         },
         "HA9920": {
           "day": 12,
-          "week": 52,
+          "week": 50,
           "month": 292,
           "year": 790,
           "all": 790
@@ -5589,7 +5589,7 @@
       "counts": {
         "day": 6,
         "week": 32,
-        "month": 224,
+        "month": 223,
         "year": 834,
         "all": 834
       },
@@ -5604,7 +5604,7 @@
         "HA9920": {
           "day": 6,
           "week": 28,
-          "month": 214,
+          "month": 213,
           "year": 806,
           "all": 806
         }
@@ -5619,7 +5619,7 @@
       "counts": {
         "day": 0,
         "week": 16,
-        "month": 79,
+        "month": 78,
         "year": 239,
         "all": 239
       },
@@ -5634,7 +5634,7 @@
         "HA9920": {
           "day": 0,
           "week": 15,
-          "month": 77,
+          "month": 76,
           "year": 231,
           "all": 231
         }
@@ -5649,7 +5649,7 @@
       "counts": {
         "day": 5,
         "week": 42,
-        "month": 212,
+        "month": 210,
         "year": 567,
         "all": 567
       },
@@ -5664,7 +5664,7 @@
         "HA9920": {
           "day": 4,
           "week": 41,
-          "month": 208,
+          "month": 206,
           "year": 539,
           "all": 539
         }
@@ -5707,8 +5707,8 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jackbot.webp",
       "counts": {
-        "day": 2,
-        "week": 15,
+        "day": 1,
+        "week": 12,
         "month": 117,
         "year": 245,
         "all": 245
@@ -5722,8 +5722,8 @@
           "all": 59
         },
         "HA9920": {
-          "day": 2,
-          "week": 14,
+          "day": 1,
+          "week": 11,
           "month": 81,
           "year": 186,
           "all": 186
@@ -5828,7 +5828,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jaws50th.webp",
       "counts": {
         "day": 4,
-        "week": 27,
+        "week": 26,
         "month": 114,
         "year": 380,
         "all": 380
@@ -5843,7 +5843,7 @@
         },
         "HA9920": {
           "day": 4,
-          "week": 24,
+          "week": 23,
           "month": 107,
           "year": 346,
           "all": 346
@@ -5887,11 +5887,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-johnwick.webp",
       "counts": {
-        "day": 18,
-        "week": 40,
-        "month": 249,
-        "year": 688,
-        "all": 688
+        "day": 22,
+        "week": 43,
+        "month": 253,
+        "year": 692,
+        "all": 692
       },
       "modelCounts": {
         "HA9919": {
@@ -5902,11 +5902,11 @@
           "all": 32
         },
         "HA9920": {
-          "day": 14,
-          "week": 35,
-          "month": 235,
-          "year": 656,
-          "all": 656
+          "day": 18,
+          "week": 38,
+          "month": 239,
+          "year": 660,
+          "all": 660
         }
       }
     },
@@ -5917,7 +5917,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jpali.webp",
       "counts": {
-        "day": 3,
+        "day": 2,
         "week": 7,
         "month": 54,
         "year": 167,
@@ -5932,7 +5932,7 @@
           "all": 4
         },
         "HA9920": {
-          "day": 3,
+          "day": 2,
           "week": 7,
           "month": 54,
           "year": 163,
@@ -5947,7 +5947,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jpattackfrommars.webp",
       "counts": {
-        "day": 7,
+        "day": 6,
         "week": 34,
         "month": 261,
         "year": 640,
@@ -5955,7 +5955,7 @@
       },
       "modelCounts": {
         "HA9919": {
-          "day": 2,
+          "day": 1,
           "week": 9,
           "month": 26,
           "year": 82,
@@ -6009,7 +6009,7 @@
       "counts": {
         "day": 7,
         "week": 17,
-        "month": 94,
+        "month": 93,
         "year": 251,
         "all": 251
       },
@@ -6024,7 +6024,7 @@
         "HA9920": {
           "day": 5,
           "week": 15,
-          "month": 92,
+          "month": 91,
           "year": 239,
           "all": 239
         }
@@ -6039,7 +6039,7 @@
       "counts": {
         "day": 4,
         "week": 24,
-        "month": 65,
+        "month": 64,
         "year": 124,
         "all": 124
       },
@@ -6054,7 +6054,7 @@
         "HA9920": {
           "day": 4,
           "week": 23,
-          "month": 64,
+          "month": 63,
           "year": 122,
           "all": 122
         }
@@ -6068,7 +6068,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jpfoofighters.webp",
       "counts": {
         "day": 10,
-        "week": 66,
+        "week": 65,
         "month": 487,
         "year": 502,
         "all": 502
@@ -6083,7 +6083,7 @@
         },
         "HA9920": {
           "day": 8,
-          "week": 58,
+          "week": 57,
           "month": 460,
           "year": 475,
           "all": 475
@@ -6128,7 +6128,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-jplordoftherings.webp",
       "counts": {
         "day": 2,
-        "week": 62,
+        "week": 61,
         "month": 225,
         "year": 542,
         "all": 542
@@ -6143,7 +6143,7 @@
         },
         "HA9920": {
           "day": 1,
-          "week": 57,
+          "week": 56,
           "month": 201,
           "year": 498,
           "all": 498
@@ -6159,7 +6159,7 @@
       "counts": {
         "day": 5,
         "week": 21,
-        "month": 129,
+        "month": 128,
         "year": 357,
         "all": 357
       },
@@ -6174,7 +6174,7 @@
         "HA9920": {
           "day": 4,
           "week": 19,
-          "month": 120,
+          "month": 119,
           "year": 320,
           "all": 320
         }
@@ -6459,7 +6459,7 @@
       "counts": {
         "day": 1,
         "week": 16,
-        "month": 79,
+        "month": 78,
         "year": 261,
         "all": 261
       },
@@ -6474,7 +6474,7 @@
         "HA9920": {
           "day": 1,
           "week": 16,
-          "month": 76,
+          "month": 75,
           "year": 241,
           "all": 241
         }
@@ -6489,7 +6489,7 @@
       "counts": {
         "day": 2,
         "week": 8,
-        "month": 50,
+        "month": 49,
         "year": 172,
         "all": 172
       },
@@ -6504,7 +6504,7 @@
         "HA9920": {
           "day": 2,
           "week": 7,
-          "month": 46,
+          "month": 45,
           "year": 159,
           "all": 159
         }
@@ -6517,11 +6517,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-kingkong.webp",
       "counts": {
-        "day": 1,
-        "week": 13,
-        "month": 56,
-        "year": 126,
-        "all": 126
+        "day": 2,
+        "week": 14,
+        "month": 57,
+        "year": 127,
+        "all": 127
       },
       "modelCounts": {
         "HA9919": {
@@ -6532,11 +6532,11 @@
           "all": 8
         },
         "HA9920": {
-          "day": 1,
-          "week": 13,
-          "month": 54,
-          "year": 118,
-          "all": 118
+          "day": 2,
+          "week": 14,
+          "month": 55,
+          "year": 119,
+          "all": 119
         }
       }
     },
@@ -6727,7 +6727,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-lordoftheringsvalinor.webp",
       "counts": {
-        "day": 7,
+        "day": 5,
         "week": 63,
         "month": 371,
         "year": 869,
@@ -6742,7 +6742,7 @@
           "all": 36
         },
         "HA9920": {
-          "day": 7,
+          "day": 5,
           "week": 61,
           "month": 360,
           "year": 833,
@@ -6879,7 +6879,7 @@
       "counts": {
         "day": 2,
         "week": 25,
-        "month": 129,
+        "month": 128,
         "year": 332,
         "all": 332
       },
@@ -6894,7 +6894,7 @@
         "HA9920": {
           "day": 2,
           "week": 24,
-          "month": 124,
+          "month": 123,
           "year": 301,
           "all": 301
         }
@@ -7087,11 +7087,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-metallicaremaster.webp",
       "counts": {
-        "day": 10,
-        "week": 82,
-        "month": 605,
-        "year": 640,
-        "all": 640
+        "day": 14,
+        "week": 86,
+        "month": 609,
+        "year": 644,
+        "all": 644
       },
       "modelCounts": {
         "HA9919": {
@@ -7102,11 +7102,11 @@
           "all": 14
         },
         "HA9920": {
-          "day": 10,
-          "week": 81,
-          "month": 592,
-          "year": 626,
-          "all": 626
+          "day": 14,
+          "week": 85,
+          "month": 596,
+          "year": 630,
+          "all": 630
         }
       }
     },
@@ -7178,7 +7178,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-michael.webp",
       "counts": {
         "day": 12,
-        "week": 98,
+        "week": 97,
         "month": 260,
         "year": 285,
         "all": 285
@@ -7193,7 +7193,7 @@
         },
         "HA9920": {
           "day": 12,
-          "week": 94,
+          "week": 93,
           "month": 249,
           "year": 273,
           "all": 273
@@ -7327,7 +7327,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-monsterbashreskin.webp",
       "counts": {
-        "day": 9,
+        "day": 7,
         "week": 108,
         "month": 456,
         "year": 839,
@@ -7335,14 +7335,14 @@
       },
       "modelCounts": {
         "HA9919": {
-          "day": 1,
+          "day": 0,
           "week": 8,
           "month": 36,
           "year": 115,
           "all": 115
         },
         "HA9920": {
-          "day": 8,
+          "day": 7,
           "week": 100,
           "month": 420,
           "year": 724,
@@ -7389,7 +7389,7 @@
       "counts": {
         "day": 4,
         "week": 26,
-        "month": 228,
+        "month": 227,
         "year": 624,
         "all": 624
       },
@@ -7404,7 +7404,7 @@
         "HA9920": {
           "day": 4,
           "week": 26,
-          "month": 218,
+          "month": 217,
           "year": 587,
           "all": 587
         }
@@ -7447,7 +7447,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-nascar.webp",
       "counts": {
-        "day": 3,
+        "day": 2,
         "week": 20,
         "month": 114,
         "year": 297,
@@ -7462,7 +7462,7 @@
           "all": 11
         },
         "HA9920": {
-          "day": 3,
+          "day": 2,
           "week": 18,
           "month": 111,
           "year": 286,
@@ -7509,7 +7509,7 @@
       "counts": {
         "day": 3,
         "week": 73,
-        "month": 264,
+        "month": 263,
         "year": 676,
         "all": 676
       },
@@ -7524,7 +7524,7 @@
         "HA9920": {
           "day": 3,
           "week": 61,
-          "month": 250,
+          "month": 249,
           "year": 604,
           "all": 604
         }
@@ -7539,7 +7539,7 @@
       "counts": {
         "day": 1,
         "week": 22,
-        "month": 258,
+        "month": 257,
         "year": 563,
         "all": 563
       },
@@ -7554,7 +7554,7 @@
         "HA9920": {
           "day": 1,
           "week": 18,
-          "month": 238,
+          "month": 237,
           "year": 524,
           "all": 524
         }
@@ -7597,7 +7597,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-nogoodgofers.webp",
       "counts": {
-        "day": 3,
+        "day": 1,
         "week": 19,
         "month": 124,
         "year": 312,
@@ -7612,7 +7612,7 @@
           "all": 40
         },
         "HA9920": {
-          "day": 3,
+          "day": 1,
           "week": 18,
           "month": 111,
           "year": 272,
@@ -7658,7 +7658,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-ozzy.webp",
       "counts": {
         "day": 16,
-        "week": 98,
+        "week": 96,
         "month": 363,
         "year": 373,
         "all": 373
@@ -7673,7 +7673,7 @@
         },
         "HA9920": {
           "day": 16,
-          "week": 94,
+          "week": 92,
           "month": 341,
           "year": 351,
           "all": 351
@@ -7687,7 +7687,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-partyanimal.webp",
       "counts": {
-        "day": 3,
+        "day": 2,
         "week": 7,
         "month": 40,
         "year": 124,
@@ -7702,7 +7702,7 @@
           "all": 8
         },
         "HA9920": {
-          "day": 3,
+          "day": 2,
           "week": 7,
           "month": 38,
           "year": 116,
@@ -7717,7 +7717,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-partymonsters.webp",
       "counts": {
-        "day": 12,
+        "day": 11,
         "week": 26,
         "month": 211,
         "year": 431,
@@ -7732,7 +7732,7 @@
           "all": 51
         },
         "HA9920": {
-          "day": 12,
+          "day": 11,
           "week": 24,
           "month": 194,
           "year": 380,
@@ -7867,7 +7867,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-pinballmagic.webp",
       "counts": {
-        "day": 17,
+        "day": 16,
         "week": 94,
         "month": 154,
         "year": 176,
@@ -7882,7 +7882,7 @@
           "all": 8
         },
         "HA9920": {
-          "day": 16,
+          "day": 15,
           "week": 89,
           "month": 146,
           "year": 168,
@@ -7957,7 +7957,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-pirateslife.webp",
       "counts": {
-        "day": 6,
+        "day": 5,
         "week": 13,
         "month": 131,
         "year": 297,
@@ -7972,7 +7972,7 @@
           "all": 10
         },
         "HA9920": {
-          "day": 6,
+          "day": 5,
           "week": 13,
           "month": 128,
           "year": 287,
@@ -8109,7 +8109,7 @@
       "counts": {
         "day": 0,
         "week": 8,
-        "month": 52,
+        "month": 51,
         "year": 213,
         "all": 213
       },
@@ -8124,7 +8124,7 @@
         "HA9920": {
           "day": 0,
           "week": 6,
-          "month": 48,
+          "month": 47,
           "year": 199,
           "all": 199
         }
@@ -8257,7 +8257,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-poolsharks.webp",
       "counts": {
-        "day": 2,
+        "day": 0,
         "week": 8,
         "month": 48,
         "year": 119,
@@ -8272,7 +8272,7 @@
           "all": 5
         },
         "HA9920": {
-          "day": 2,
+          "day": 0,
           "week": 8,
           "month": 47,
           "year": 114,
@@ -8289,7 +8289,7 @@
       "counts": {
         "day": 8,
         "week": 48,
-        "month": 237,
+        "month": 236,
         "year": 577,
         "all": 577
       },
@@ -8304,7 +8304,7 @@
         "HA9920": {
           "day": 7,
           "week": 43,
-          "month": 223,
+          "month": 222,
           "year": 544,
           "all": 544
         }
@@ -8557,11 +8557,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-ripleys.webp",
       "counts": {
-        "day": 3,
-        "week": 23,
-        "month": 160,
-        "year": 336,
-        "all": 336
+        "day": 4,
+        "week": 24,
+        "month": 161,
+        "year": 337,
+        "all": 337
       },
       "modelCounts": {
         "HA9919": {
@@ -8572,11 +8572,11 @@
           "all": 11
         },
         "HA9920": {
-          "day": 3,
-          "week": 23,
-          "month": 157,
-          "year": 325,
-          "all": 325
+          "day": 4,
+          "week": 24,
+          "month": 158,
+          "year": 326,
+          "all": 326
         }
       }
     },
@@ -8679,7 +8679,7 @@
       "counts": {
         "day": 4,
         "week": 20,
-        "month": 138,
+        "month": 137,
         "year": 408,
         "all": 408
       },
@@ -8694,7 +8694,7 @@
         "HA9920": {
           "day": 4,
           "week": 18,
-          "month": 129,
+          "month": 128,
           "year": 391,
           "all": 391
         }
@@ -8887,11 +8887,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-sfii.webp",
       "counts": {
-        "day": 9,
-        "week": 18,
-        "month": 75,
-        "year": 195,
-        "all": 195
+        "day": 10,
+        "week": 19,
+        "month": 76,
+        "year": 196,
+        "all": 196
       },
       "modelCounts": {
         "HA9919": {
@@ -8902,11 +8902,11 @@
           "all": 16
         },
         "HA9920": {
-          "day": 0,
-          "week": 9,
-          "month": 66,
-          "year": 179,
-          "all": 179
+          "day": 1,
+          "week": 10,
+          "month": 67,
+          "year": 180,
+          "all": 180
         }
       }
     },
@@ -8947,11 +8947,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-sharkeys.webp",
       "counts": {
-        "day": 15,
-        "week": 19,
-        "month": 60,
-        "year": 124,
-        "all": 124
+        "day": 16,
+        "week": 20,
+        "month": 61,
+        "year": 125,
+        "all": 125
       },
       "modelCounts": {
         "HA9919": {
@@ -8962,11 +8962,11 @@
           "all": 10
         },
         "HA9920": {
-          "day": 15,
-          "week": 19,
-          "month": 57,
-          "year": 114,
-          "all": 114
+          "day": 16,
+          "week": 20,
+          "month": 58,
+          "year": 115,
+          "all": 115
         }
       }
     },
@@ -9037,7 +9037,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-smbmushroom.webp",
       "counts": {
-        "day": 4,
+        "day": 3,
         "week": 13,
         "month": 50,
         "year": 195,
@@ -9052,7 +9052,7 @@
           "all": 2
         },
         "HA9920": {
-          "day": 4,
+          "day": 3,
           "week": 12,
           "month": 49,
           "year": 193,
@@ -9097,7 +9097,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-sopranos.webp",
       "counts": {
-        "day": 6,
+        "day": 5,
         "week": 51,
         "month": 251,
         "year": 616,
@@ -9105,7 +9105,7 @@
       },
       "modelCounts": {
         "HA9919": {
-          "day": 1,
+          "day": 0,
           "week": 7,
           "month": 10,
           "year": 21,
@@ -9127,7 +9127,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-southpark.webp",
       "counts": {
-        "day": 12,
+        "day": 11,
         "week": 46,
         "month": 189,
         "year": 496,
@@ -9142,7 +9142,7 @@
           "all": 32
         },
         "HA9920": {
-          "day": 9,
+          "day": 8,
           "week": 42,
           "month": 180,
           "year": 464,
@@ -9157,11 +9157,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spacecadetge.webp",
       "counts": {
-        "day": 10,
-        "week": 53,
+        "day": 12,
+        "week": 55,
         "month": 240,
-        "year": 606,
-        "all": 606
+        "year": 608,
+        "all": 608
       },
       "modelCounts": {
         "HA9919": {
@@ -9172,11 +9172,11 @@
           "all": 50
         },
         "HA9920": {
-          "day": 7,
-          "week": 49,
+          "day": 9,
+          "week": 51,
           "month": 221,
-          "year": 556,
-          "all": 556
+          "year": 558,
+          "all": 558
         }
       }
     },
@@ -9188,7 +9188,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spaceinvaders.webp",
       "counts": {
         "day": 2,
-        "week": 13,
+        "week": 11,
         "month": 87,
         "year": 203,
         "all": 203
@@ -9203,7 +9203,7 @@
         },
         "HA9920": {
           "day": 2,
-          "week": 12,
+          "week": 10,
           "month": 86,
           "year": 198,
           "all": 198
@@ -9278,7 +9278,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spacestation.webp",
       "counts": {
         "day": 7,
-        "week": 19,
+        "week": 17,
         "month": 260,
         "year": 306,
         "all": 306
@@ -9293,7 +9293,7 @@
         },
         "HA9920": {
           "day": 7,
-          "week": 17,
+          "week": 15,
           "month": 246,
           "year": 290,
           "all": 290
@@ -9308,8 +9308,8 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spidermanve.webp",
       "counts": {
         "day": 6,
-        "week": 82,
-        "month": 364,
+        "week": 80,
+        "month": 360,
         "year": 983,
         "all": 983
       },
@@ -9323,8 +9323,8 @@
         },
         "HA9920": {
           "day": 5,
-          "week": 62,
-          "month": 320,
+          "week": 60,
+          "month": 316,
           "year": 909,
           "all": 909
         }
@@ -9338,10 +9338,10 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spongebob.webp",
       "counts": {
         "day": 31,
-        "week": 174,
-        "month": 212,
-        "year": 228,
-        "all": 228
+        "week": 175,
+        "month": 213,
+        "year": 229,
+        "all": 229
       },
       "modelCounts": {
         "HA9919": {
@@ -9353,10 +9353,10 @@
         },
         "HA9920": {
           "day": 28,
-          "week": 160,
-          "month": 197,
-          "year": 212,
-          "all": 212
+          "week": 161,
+          "month": 198,
+          "year": 213,
+          "all": 213
         }
       }
     },
@@ -9367,11 +9367,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-starship.webp",
       "counts": {
-        "day": 0,
-        "week": 5,
-        "month": 41,
-        "year": 113,
-        "all": 113
+        "day": 1,
+        "week": 6,
+        "month": 42,
+        "year": 114,
+        "all": 114
       },
       "modelCounts": {
         "HA9919": {
@@ -9382,11 +9382,11 @@
           "all": 7
         },
         "HA9920": {
-          "day": 0,
-          "week": 5,
-          "month": 40,
-          "year": 106,
-          "all": 106
+          "day": 1,
+          "week": 6,
+          "month": 41,
+          "year": 107,
+          "all": 107
         }
       }
     },
@@ -9428,7 +9428,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-startrek25th.webp",
       "counts": {
         "day": 8,
-        "week": 30,
+        "week": 28,
         "month": 135,
         "year": 1052,
         "all": 1052
@@ -9443,7 +9443,7 @@
         },
         "HA9920": {
           "day": 7,
-          "week": 28,
+          "week": 26,
           "month": 131,
           "year": 1019,
           "all": 1019
@@ -9459,7 +9459,7 @@
       "counts": {
         "day": 6,
         "week": 44,
-        "month": 200,
+        "month": 199,
         "year": 649,
         "all": 649
       },
@@ -9474,7 +9474,7 @@
         "HA9920": {
           "day": 6,
           "week": 43,
-          "month": 197,
+          "month": 196,
           "year": 625,
           "all": 625
         }
@@ -9487,11 +9487,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-startrekmu.webp",
       "counts": {
-        "day": 0,
-        "week": 12,
-        "month": 88,
-        "year": 151,
-        "all": 151
+        "day": 2,
+        "week": 14,
+        "month": 90,
+        "year": 153,
+        "all": 153
       },
       "modelCounts": {
         "HA9919": {
@@ -9502,11 +9502,11 @@
           "all": 2
         },
         "HA9920": {
-          "day": 0,
-          "week": 12,
-          "month": 88,
-          "year": 149,
-          "all": 149
+          "day": 2,
+          "week": 14,
+          "month": 90,
+          "year": 151,
+          "all": 151
         }
       }
     },
@@ -9518,7 +9518,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-startrektng.webp",
       "counts": {
         "day": 10,
-        "week": 63,
+        "week": 62,
         "month": 294,
         "year": 587,
         "all": 587
@@ -9533,7 +9533,7 @@
         },
         "HA9920": {
           "day": 10,
-          "week": 63,
+          "week": 62,
           "month": 289,
           "year": 562,
           "all": 562
@@ -9549,7 +9549,7 @@
       "counts": {
         "day": 5,
         "week": 33,
-        "month": 151,
+        "month": 150,
         "year": 580,
         "all": 580
       },
@@ -9564,7 +9564,7 @@
         "HA9920": {
           "day": 5,
           "week": 31,
-          "month": 142,
+          "month": 141,
           "year": 548,
           "all": 548
         }
@@ -9607,11 +9607,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-starwarstrilogy.webp",
       "counts": {
-        "day": 8,
-        "week": 57,
-        "month": 323,
-        "year": 797,
-        "all": 797
+        "day": 9,
+        "week": 58,
+        "month": 324,
+        "year": 798,
+        "all": 798
       },
       "modelCounts": {
         "HA9919": {
@@ -9622,11 +9622,11 @@
           "all": 28
         },
         "HA9920": {
-          "day": 8,
-          "week": 56,
-          "month": 317,
-          "year": 769,
-          "all": 769
+          "day": 9,
+          "week": 57,
+          "month": 318,
+          "year": 770,
+          "all": 770
         }
       }
     },
@@ -9637,11 +9637,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-stevemiller.webp",
       "counts": {
-        "day": 20,
-        "week": 108,
-        "month": 176,
-        "year": 176,
-        "all": 176
+        "day": 21,
+        "week": 109,
+        "month": 177,
+        "year": 177,
+        "all": 177
       },
       "modelCounts": {
         "HA9919": {
@@ -9652,11 +9652,11 @@
           "all": 9
         },
         "HA9920": {
-          "day": 19,
-          "week": 100,
-          "month": 167,
-          "year": 167,
-          "all": 167
+          "day": 20,
+          "week": 101,
+          "month": 168,
+          "year": 168,
+          "all": 168
         }
       }
     },
@@ -9669,7 +9669,7 @@
       "counts": {
         "day": 13,
         "week": 48,
-        "month": 320,
+        "month": 319,
         "year": 1083,
         "all": 1083
       },
@@ -9684,7 +9684,7 @@
         "HA9920": {
           "day": 12,
           "week": 44,
-          "month": 300,
+          "month": 299,
           "year": 1007,
           "all": 1007
         }
@@ -9727,7 +9727,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-supermario.webp",
       "counts": {
-        "day": 8,
+        "day": 7,
         "week": 40,
         "month": 302,
         "year": 836,
@@ -9742,7 +9742,7 @@
           "all": 40
         },
         "HA9920": {
-          "day": 8,
+          "day": 7,
           "week": 38,
           "month": 298,
           "year": 796,
@@ -9847,8 +9847,8 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-t2.webp",
       "counts": {
-        "day": 15,
-        "week": 119,
+        "day": 13,
+        "week": 112,
         "month": 663,
         "year": 1726,
         "all": 1726
@@ -9862,8 +9862,8 @@
           "all": 71
         },
         "HA9920": {
-          "day": 15,
-          "week": 116,
+          "day": 13,
+          "week": 109,
           "month": 635,
           "year": 1655,
           "all": 1655
@@ -9997,11 +9997,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tftc.webp",
       "counts": {
-        "day": 2,
+        "day": 3,
         "week": 32,
-        "month": 706,
-        "year": 1327,
-        "all": 1327
+        "month": 707,
+        "year": 1328,
+        "all": 1328
       },
       "modelCounts": {
         "HA9919": {
@@ -10012,11 +10012,11 @@
           "all": 100
         },
         "HA9920": {
-          "day": 2,
+          "day": 3,
           "week": 29,
-          "month": 669,
-          "year": 1227,
-          "all": 1227
+          "month": 670,
+          "year": 1228,
+          "all": 1228
         }
       }
     },
@@ -10177,15 +10177,15 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tmnt.webp",
       "counts": {
-        "day": 10,
-        "week": 30,
+        "day": 9,
+        "week": 29,
         "month": 178,
         "year": 597,
         "all": 597
       },
       "modelCounts": {
         "HA9919": {
-          "day": 1,
+          "day": 0,
           "week": 1,
           "month": 13,
           "year": 65,
@@ -10193,7 +10193,7 @@
         },
         "HA9920": {
           "day": 9,
-          "week": 29,
+          "week": 28,
           "month": 165,
           "year": 532,
           "all": 532
@@ -10207,23 +10207,23 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tmntremix.webp",
       "counts": {
-        "day": 9,
-        "week": 27,
+        "day": 7,
+        "week": 26,
         "month": 163,
         "year": 611,
         "all": 611
       },
       "modelCounts": {
         "HA9919": {
-          "day": 1,
+          "day": 0,
           "week": 6,
           "month": 23,
           "year": 87,
           "all": 87
         },
         "HA9920": {
-          "day": 8,
-          "week": 21,
+          "day": 7,
+          "week": 20,
           "month": 140,
           "year": 524,
           "all": 524
@@ -10237,11 +10237,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tna.webp",
       "counts": {
-        "day": 5,
-        "week": 49,
+        "day": 6,
+        "week": 50,
         "month": 308,
-        "year": 912,
-        "all": 912
+        "year": 913,
+        "all": 913
       },
       "modelCounts": {
         "HA9919": {
@@ -10252,11 +10252,11 @@
           "all": 60
         },
         "HA9920": {
-          "day": 5,
-          "week": 44,
+          "day": 6,
+          "week": 45,
           "month": 296,
-          "year": 852,
-          "all": 852
+          "year": 853,
+          "all": 853
         }
       }
     },
@@ -10508,8 +10508,8 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-trident.webp",
       "counts": {
         "day": 1,
-        "week": 9,
-        "month": 58,
+        "week": 8,
+        "month": 54,
         "year": 131,
         "all": 131
       },
@@ -10523,8 +10523,8 @@
         },
         "HA9920": {
           "day": 1,
-          "week": 8,
-          "month": 57,
+          "week": 7,
+          "month": 53,
           "year": 130,
           "all": 130
         }
@@ -10537,11 +10537,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tronlegacy.webp",
       "counts": {
-        "day": 18,
-        "week": 97,
-        "month": 929,
-        "year": 2314,
-        "all": 2314
+        "day": 20,
+        "week": 100,
+        "month": 931,
+        "year": 2317,
+        "all": 2317
       },
       "modelCounts": {
         "HA9919": {
@@ -10552,11 +10552,11 @@
           "all": 113
         },
         "HA9920": {
-          "day": 11,
-          "week": 88,
-          "month": 884,
-          "year": 2201,
-          "all": 2201
+          "day": 13,
+          "week": 91,
+          "month": 886,
+          "year": 2204,
+          "all": 2204
         }
       }
     },
@@ -10567,7 +10567,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-twdle.webp",
       "counts": {
-        "day": 8,
+        "day": 6,
         "week": 25,
         "month": 293,
         "year": 779,
@@ -10582,7 +10582,7 @@
           "all": 27
         },
         "HA9920": {
-          "day": 5,
+          "day": 3,
           "week": 20,
           "month": 283,
           "year": 752,
@@ -10597,11 +10597,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-twister.webp",
       "counts": {
-        "day": 11,
-        "week": 27,
-        "month": 143,
-        "year": 329,
-        "all": 329
+        "day": 13,
+        "week": 29,
+        "month": 145,
+        "year": 331,
+        "all": 331
       },
       "modelCounts": {
         "HA9919": {
@@ -10612,11 +10612,11 @@
           "all": 23
         },
         "HA9920": {
-          "day": 11,
-          "week": 20,
-          "month": 135,
-          "year": 306,
-          "all": 306
+          "day": 13,
+          "week": 22,
+          "month": 137,
+          "year": 308,
+          "all": 308
         }
       }
     },
@@ -10809,7 +10809,7 @@
       "counts": {
         "day": 0,
         "week": 6,
-        "month": 65,
+        "month": 64,
         "year": 178,
         "all": 178
       },
@@ -10824,7 +10824,7 @@
         "HA9920": {
           "day": 0,
           "week": 6,
-          "month": 60,
+          "month": 59,
           "year": 165,
           "all": 165
         }
@@ -10897,7 +10897,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-walkyria.webp",
       "counts": {
-        "day": 2,
+        "day": 1,
         "week": 6,
         "month": 31,
         "year": 62,
@@ -10912,7 +10912,7 @@
           "all": 2
         },
         "HA9920": {
-          "day": 1,
+          "day": 0,
           "week": 5,
           "month": 29,
           "year": 60,
@@ -10928,7 +10928,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-wallace.webp",
       "counts": {
         "day": 4,
-        "week": 16,
+        "week": 15,
         "month": 184,
         "year": 217,
         "all": 217
@@ -10943,7 +10943,7 @@
         },
         "HA9920": {
           "day": 4,
-          "week": 13,
+          "week": 12,
           "month": 169,
           "year": 201,
           "all": 201
@@ -11047,7 +11047,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-whodunnit1947.webp",
       "counts": {
-        "day": 14,
+        "day": 12,
         "week": 83,
         "month": 188,
         "year": 210,
@@ -11062,7 +11062,7 @@
           "all": 11
         },
         "HA9920": {
-          "day": 12,
+          "day": 10,
           "week": 72,
           "month": 177,
           "year": 199,
@@ -11107,7 +11107,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-wipeout.webp",
       "counts": {
-        "day": 1,
+        "day": 0,
         "week": 4,
         "month": 36,
         "year": 104,
@@ -11122,7 +11122,7 @@
           "all": 20
         },
         "HA9920": {
-          "day": 1,
+          "day": 0,
           "week": 4,
           "month": 33,
           "year": 84,
@@ -11138,7 +11138,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-worldcupsoccer.webp",
       "counts": {
         "day": 8,
-        "week": 26,
+        "week": 25,
         "month": 203,
         "year": 549,
         "all": 549
@@ -11153,7 +11153,7 @@
         },
         "HA9920": {
           "day": 8,
-          "week": 21,
+          "week": 20,
           "month": 180,
           "year": 480,
           "all": 480
@@ -11317,7 +11317,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-xmen.webp",
       "counts": {
-        "day": 28,
+        "day": 25,
         "week": 102,
         "month": 516,
         "year": 1011,
@@ -11332,7 +11332,7 @@
           "all": 70
         },
         "HA9920": {
-          "day": 22,
+          "day": 19,
           "week": 90,
           "month": 483,
           "year": 941,
