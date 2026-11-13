@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-13T09:07:07.483Z",
+  "generatedAt": "2026-11-13T10:07:07.892Z",
   "modelDefinitions": [
     {
       "key": "HA9919",
@@ -20,11 +20,11 @@
   "periods": {
     "day": {
       "label": "Last 24 hours",
-      "start": "2026-11-12T09:00:00.000Z",
-      "end": "2026-11-13T09:00:00.000Z",
-      "totalPlays": 1067,
-      "activeTables": 276,
-      "unmatchedPlays": 345,
+      "start": "2026-11-12T10:00:00.000Z",
+      "end": "2026-11-13T10:00:00.000Z",
+      "totalPlays": 1063,
+      "activeTables": 275,
+      "unmatchedPlays": 322,
       "models": {
         "HA9919": {
           "totalPlays": 78,
@@ -32,19 +32,19 @@
           "unmatchedPlays": 3
         },
         "HA9920": {
-          "totalPlays": 989,
-          "activeTables": 264,
-          "unmatchedPlays": 342
+          "totalPlays": 985,
+          "activeTables": 263,
+          "unmatchedPlays": 319
         }
       }
     },
     "week": {
       "label": "Last 7 days",
-      "start": "2026-11-06T09:00:00.000Z",
-      "end": "2026-11-13T09:00:00.000Z",
-      "totalPlays": 8842,
+      "start": "2026-11-06T10:00:00.000Z",
+      "end": "2026-11-13T10:00:00.000Z",
+      "totalPlays": 8841,
       "activeTables": 374,
-      "unmatchedPlays": 1830,
+      "unmatchedPlays": 1829,
       "models": {
         "HA9919": {
           "totalPlays": 692,
@@ -52,37 +52,37 @@
           "unmatchedPlays": 23
         },
         "HA9920": {
-          "totalPlays": 8150,
+          "totalPlays": 8149,
           "activeTables": 374,
-          "unmatchedPlays": 1807
+          "unmatchedPlays": 1806
         }
       }
     },
     "month": {
       "label": "Last 30 days",
-      "start": "2026-10-14T09:00:00.000Z",
-      "end": "2026-11-13T09:00:00.000Z",
-      "totalPlays": 47639,
+      "start": "2026-10-14T10:00:00.000Z",
+      "end": "2026-11-13T10:00:00.000Z",
+      "totalPlays": 47629,
       "activeTables": 377,
-      "unmatchedPlays": 9979,
+      "unmatchedPlays": 9978,
       "models": {
         "HA9919": {
-          "totalPlays": 3021,
+          "totalPlays": 3013,
           "activeTables": 361,
           "unmatchedPlays": 473
         },
         "HA9920": {
-          "totalPlays": 44618,
+          "totalPlays": 44616,
           "activeTables": 377,
-          "unmatchedPlays": 9506
+          "unmatchedPlays": 9505
         }
       }
     },
     "year": {
       "label": "Last 365 days",
       "start": "2026-08-26T00:00:00.000Z",
-      "end": "2026-11-13T09:00:00.000Z",
-      "totalPlays": 128469,
+      "end": "2026-11-13T10:00:00.000Z",
+      "totalPlays": 128470,
       "activeTables": 377,
       "unmatchedPlays": 21957,
       "models": {
@@ -92,7 +92,7 @@
           "unmatchedPlays": 707
         },
         "HA9920": {
-          "totalPlays": 120245,
+          "totalPlays": 120246,
           "activeTables": 377,
           "unmatchedPlays": 21250
         }
@@ -101,8 +101,8 @@
     "all": {
       "label": "All time",
       "start": "2026-08-26T00:00:00.000Z",
-      "end": "2026-11-13T09:00:00.000Z",
-      "totalPlays": 128469,
+      "end": "2026-11-13T10:00:00.000Z",
+      "totalPlays": 128470,
       "activeTables": 377,
       "unmatchedPlays": 21957,
       "models": {
@@ -112,7 +112,7 @@
           "unmatchedPlays": 707
         },
         "HA9920": {
-          "totalPlays": 120245,
+          "totalPlays": 120246,
           "activeTables": 377,
           "unmatchedPlays": 21250
         }
@@ -489,7 +489,7 @@
       "counts": {
         "day": 3,
         "week": 23,
-        "month": 127,
+        "month": 125,
         "year": 589,
         "all": 589
       },
@@ -504,7 +504,7 @@
         "HA9920": {
           "day": 3,
           "week": 21,
-          "month": 116,
+          "month": 114,
           "year": 565,
           "all": 565
         }
@@ -819,7 +819,7 @@
       "counts": {
         "day": 2,
         "week": 15,
-        "month": 174,
+        "month": 173,
         "year": 459,
         "all": 459
       },
@@ -827,7 +827,7 @@
         "HA9919": {
           "day": 0,
           "week": 2,
-          "month": 8,
+          "month": 7,
           "year": 24,
           "all": 24
         },
@@ -1779,7 +1779,7 @@
       "counts": {
         "day": 2,
         "week": 49,
-        "month": 161,
+        "month": 160,
         "year": 371,
         "all": 371
       },
@@ -1787,7 +1787,7 @@
         "HA9919": {
           "day": 0,
           "week": 3,
-          "month": 11,
+          "month": 10,
           "year": 33,
           "all": 33
         },
@@ -2829,7 +2829,7 @@
       "counts": {
         "day": 1,
         "week": 8,
-        "month": 49,
+        "month": 48,
         "year": 103,
         "all": 103
       },
@@ -2837,7 +2837,7 @@
         "HA9919": {
           "day": 0,
           "week": 0,
-          "month": 7,
+          "month": 6,
           "year": 9,
           "all": 9
         },
@@ -3219,7 +3219,7 @@
       "counts": {
         "day": 0,
         "week": 0,
-        "month": 17,
+        "month": 16,
         "year": 53,
         "all": 53
       },
@@ -3227,7 +3227,7 @@
         "HA9919": {
           "day": 0,
           "week": 0,
-          "month": 3,
+          "month": 2,
           "year": 8,
           "all": 8
         },
@@ -4659,7 +4659,7 @@
       "counts": {
         "day": 2,
         "week": 16,
-        "month": 108,
+        "month": 107,
         "year": 467,
         "all": 467
       },
@@ -4667,7 +4667,7 @@
         "HA9919": {
           "day": 0,
           "week": 1,
-          "month": 11,
+          "month": 10,
           "year": 32,
           "all": 32
         },
@@ -5139,7 +5139,7 @@
       "counts": {
         "day": 4,
         "week": 17,
-        "month": 76,
+        "month": 74,
         "year": 155,
         "all": 155
       },
@@ -5147,7 +5147,7 @@
         "HA9919": {
           "day": 0,
           "week": 1,
-          "month": 5,
+          "month": 3,
           "year": 9,
           "all": 9
         },
@@ -5829,7 +5829,7 @@
       "counts": {
         "day": 2,
         "week": 24,
-        "month": 103,
+        "month": 102,
         "year": 397,
         "all": 397
       },
@@ -5837,7 +5837,7 @@
         "HA9919": {
           "day": 1,
           "week": 1,
-          "month": 8,
+          "month": 7,
           "year": 35,
           "all": 35
         },
@@ -6487,7 +6487,7 @@
       "nsfw": true,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-killershof.webp",
       "counts": {
-        "day": 1,
+        "day": 0,
         "week": 7,
         "month": 44,
         "year": 175,
@@ -6502,7 +6502,7 @@
           "all": 13
         },
         "HA9920": {
-          "day": 1,
+          "day": 0,
           "week": 7,
           "month": 40,
           "year": 162,
@@ -7058,7 +7058,7 @@
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-metallicapremium.webp",
       "counts": {
         "day": 12,
-        "week": 52,
+        "week": 50,
         "month": 219,
         "year": 1249,
         "all": 1249
@@ -7073,7 +7073,7 @@
         },
         "HA9920": {
           "day": 11,
-          "week": 50,
+          "week": 48,
           "month": 211,
           "year": 1202,
           "all": 1202
@@ -7869,7 +7869,7 @@
       "counts": {
         "day": 3,
         "week": 62,
-        "month": 161,
+        "month": 160,
         "year": 208,
         "all": 208
       },
@@ -7884,7 +7884,7 @@
         "HA9920": {
           "day": 2,
           "week": 59,
-          "month": 154,
+          "month": 153,
           "year": 199,
           "all": 199
         }
@@ -8137,7 +8137,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-playboy2002.webp",
       "counts": {
-        "day": 5,
+        "day": 2,
         "week": 64,
         "month": 270,
         "year": 919,
@@ -8152,7 +8152,7 @@
           "all": 39
         },
         "HA9920": {
-          "day": 5,
+          "day": 2,
           "week": 62,
           "month": 262,
           "year": 880,
@@ -9157,11 +9157,11 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-spacecadetge.webp",
       "counts": {
-        "day": 12,
-        "week": 57,
-        "month": 232,
-        "year": 643,
-        "all": 643
+        "day": 13,
+        "week": 58,
+        "month": 233,
+        "year": 644,
+        "all": 644
       },
       "modelCounts": {
         "HA9919": {
@@ -9172,11 +9172,11 @@
           "all": 54
         },
         "HA9920": {
-          "day": 12,
-          "week": 49,
-          "month": 211,
-          "year": 589,
-          "all": 589
+          "day": 13,
+          "week": 50,
+          "month": 212,
+          "year": 590,
+          "all": 590
         }
       }
     },
@@ -10237,7 +10237,7 @@
       "nsfw": false,
       "launcherImage": "https://raw.githubusercontent.com/LegendsUnchained/vpx-standalone-alp4k/manifest/boxart/vpx-tna.webp",
       "counts": {
-        "day": 5,
+        "day": 4,
         "week": 40,
         "month": 274,
         "year": 939,
@@ -10252,7 +10252,7 @@
           "all": 60
         },
         "HA9920": {
-          "day": 5,
+          "day": 4,
           "week": 39,
           "month": 263,
           "year": 879,
